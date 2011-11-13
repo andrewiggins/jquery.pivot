@@ -7,10 +7,11 @@
     <script src="script/jquery.pivot.js"></script>
     <script>
     $(function () {
-        $('#run').click(function () {
+        $('#example3').click(function () {
+            $('h1').hide();
             $('table').hide();
             $('#res').pivot({
-                source: $('#example1'),
+                source: $(this),
                 formatFunc: function (n) { return jQuery.fn.pivot.formatUK(n, 2); },
                 onResultCellClicked: function (data) { alert(dumpObj(data, "data")); }
             });
@@ -89,236 +90,2456 @@
 </head>
 <body>
 
-<button id="run">Run</button>
+<h1>Click Table to convert to Pivot Table</h1>
 
 <div id="demos">
   <div id="res">
   </div>
   <div id="sourcetables">
-    <table id="example1" dataid="An optional sourcetable identifier" >
+    <table id="example3">
+    <tbody>
         <tr>
-            <th pivot="true">Month </th>
-            <th groupbyrank="2">Subject </th>
-            <th groupbyrank="1" dataid="An optional id.">Student </th>
-            <th result="true">Score </th>
+            <th groupbyrank="1">Ansat </th>
+            <th groupbyrank="2">Kunde </th>
+            <th groupbyrank="3">Projekt </th>
+            <th result="true">sum </th>
+            <th>Fakturerbar </th>
+            <th>sort </th>
+            <th pivot="true" dataid="idforpivot">dato </th>
         </tr>
         <tr>
-            <td>January</td>
-            <td>English</td>
-            <td>Elisa</td>
-            <td>8.7</td>
+            <td>Janus Schmidt </td>
+            <td>Kunde ikke angivet </td>
+            <td>Projekt ikke angivet </td>
+            <td>1 </td>
+            <td>Ja </td>
+            <td>2009-02-04 </td>
+            <td>2-2009 </td>
         </tr>
         <tr>
-            <td>January </td>
-            <td>Maths </td>
-            <td>Elisa </td>
-            <td>6.5 </td>
+            <td>Janus Schmidt </td>
+            <td>Metalogic </td>
+            <td>Apps </td>
+            <td>0,5 </td>
+            <td>Nej </td>
+            <td>2009-02-05 </td>
+            <td>2-2009 </td>
         </tr>
         <tr>
-            <td>January </td>
-            <td>Science </td>
-            <td>Elisa </td>
-            <td>5.8 </td>
+            <td>Janus Schmidt </td>
+            <td>SIS </td>
+            <td>evaluering </td>
+            <td>1 </td>
+            <td>Ja </td>
+            <td>2009-01-05 </td>
+            <td>1-2009 </td>
         </tr>
         <tr>
-            <td>January </td>
-            <td>Art </td>
-            <td>Elisa </td>
-            <td>8.9 </td>
+            <td>Janus Schmidt </td>
+            <td>SIS </td>
+            <td>Evaluering </td>
+            <td>1 </td>
+            <td>Ja </td>
+            <td>2009-01-09 </td>
+            <td>1-2009 </td>
         </tr>
         <tr>
-            <td>January </td>
-            <td>History </td>
-            <td>Elisa </td>
-            <td>8.1 </td>
+            <td>Janus Schmidt </td>
+            <td>SIS </td>
+            <td>Evaluering </td>
+            <td>2,5 </td>
+            <td>Ja </td>
+            <td>2009-02-03 </td>
+            <td>2-2009 </td>
         </tr>
         <tr>
-            <td>January </td>
-            <td>French </td>
-            <td>Elisa </td>
-            <td>6.2 </td>
+            <td>Janus Schmidt </td>
+            <td>SIS </td>
+            <td>Evaluering </td>
+            <td>0,5 </td>
+            <td>Ja </td>
+            <td>2009-02-04 </td>
+            <td>2-2009 </td>
         </tr>
         <tr>
-            <td>February </td>
-            <td>English </td>
-            <td>Elisa </td>
-            <td>5.1 </td>
+            <td>Janus Schmidt </td>
+            <td>RegionH </td>
+            <td>Fundraising CMS </td>
+            <td>2 </td>
+            <td>Ja </td>
+            <td>2009-01-16 </td>
+            <td>1-2009 </td>
         </tr>
         <tr>
-            <td>February </td>
-            <td>Maths </td>
-            <td>Elisa </td>
-            <td>7.2 </td>
+            <td>Janus Schmidt </td>
+            <td>RegionH </td>
+            <td>Fundraising CMS </td>
+            <td>2 </td>
+            <td>Ja </td>
+            <td>2009-01-20 </td>
+            <td>1-2009 </td>
         </tr>
         <tr>
-            <td>February </td>
-            <td>Science </td>
-            <td>Elisa </td>
-            <td>8.9 </td>
+            <td>Janus Schmidt </td>
+            <td>RegionH </td>
+            <td>Fundraising CMS </td>
+            <td>1,5 </td>
+            <td>Ja </td>
+            <td>2009-02-03 </td>
+            <td>2-2009 </td>
         </tr>
         <tr>
-            <td>February </td>
-            <td>Art </td>
-            <td>Elisa </td>
-            <td>8.3 </td>
+            <td>Janus Schmidt </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>4 </td>
+            <td>Nej </td>
+            <td>2009-01-09 </td>
+            <td>1-2009 </td>
         </tr>
         <tr>
-            <td>February </td>
-            <td>History </td>
-            <td>Elisa </td>
-            <td>8.4 </td>
+            <td>Janus Schmidt </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>4 </td>
+            <td>Nej </td>
+            <td>2009-01-13 </td>
+            <td>1-2009 </td>
         </tr>
         <tr>
-            <td>February </td>
-            <td>French </td>
-            <td>Elisa </td>
-            <td>5.7 </td>
+            <td>Janus Schmidt </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>6 </td>
+            <td>Nej </td>
+            <td>2009-01-14 </td>
+            <td>1-2009 </td>
         </tr>
         <tr>
-            <td>March </td>
-            <td>English </td>
-            <td>Elisa </td>
-            <td>4.1 </td>
+            <td>Janus Schmidt </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>1 </td>
+            <td>Nej </td>
+            <td>2009-01-15 </td>
+            <td>1-2009 </td>
         </tr>
         <tr>
-            <td>March </td>
-            <td>Maths </td>
-            <td>Elisa </td>
-            <td>7.1 </td>
+            <td>Janus Schmidt </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>2 </td>
+            <td>Nej </td>
+            <td>2009-01-20 </td>
+            <td>1-2009 </td>
         </tr>
         <tr>
-            <td>March </td>
-            <td>Science </td>
-            <td>Elisa </td>
-            <td>4.1 </td>
+            <td>Janus Schmidt </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>3,5 </td>
+            <td>Nej </td>
+            <td>2009-01-22 </td>
+            <td>1-2009 </td>
         </tr>
         <tr>
-            <td>March </td>
-            <td>Art </td>
-            <td>Elisa </td>
-            <td>9.2 </td>
+            <td>Janus Schmidt </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>4 </td>
+            <td>Nej </td>
+            <td>2009-01-23 </td>
+            <td>1-2009 </td>
         </tr>
         <tr>
-            <td>March </td>
-            <td>History </td>
-            <td>Elisa </td>
-            <td>9.1 </td>
+            <td>Janus Schmidt </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>6 </td>
+            <td>Nej </td>
+            <td>2009-01-26 </td>
+            <td>1-2009 </td>
         </tr>
         <tr>
-            <td>March </td>
-            <td>French </td>
-            <td>Elisa </td>
-            <td>5.6 </td>
+            <td>Janus Schmidt </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>5 </td>
+            <td>Nej </td>
+            <td>2009-01-27 </td>
+            <td>1-2009 </td>
         </tr>
         <tr>
-            <td>January </td>
-            <td>english </td>
-            <td>Mary </td>
-            <td>8.7 </td>
+            <td>Janus Schmidt </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>3,5 </td>
+            <td>Nej </td>
+            <td>2009-01-28 </td>
+            <td>1-2009 </td>
         </tr>
         <tr>
-            <td>January </td>
-            <td>Maths </td>
-            <td>Mary </td>
-            <td>5.3 </td>
+            <td>Janus Schmidt </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>1 </td>
+            <td>Nej </td>
+            <td>2009-02-04 </td>
+            <td>2-2009 </td>
         </tr>
         <tr>
-            <td>January </td>
-            <td>Science </td>
-            <td>Mary </td>
-            <td>3.5 </td>
+            <td>Janus Schmidt </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>0,5 </td>
+            <td>Nej </td>
+            <td>2009-02-05 </td>
+            <td>2-2009 </td>
         </tr>
         <tr>
-            <td>January </td>
-            <td>Art </td>
-            <td>Mary </td>
-            <td>6.1 </td>
+            <td>Janus Schmidt </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>0,5 </td>
+            <td>Nej </td>
+            <td>2009-02-06 </td>
+            <td>2-2009 </td>
         </tr>
         <tr>
-            <td>January </td>
-            <td>History </td>
-            <td>Mary </td>
-            <td>5.8 </td>
+            <td>Janus Schmidt </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>2 </td>
+            <td>Nej </td>
+            <td>2009-02-09 </td>
+            <td>2-2009 </td>
         </tr>
         <tr>
-            <td>January </td>
-            <td>French </td>
-            <td>Mary </td>
-            <td>9.2 </td>
+            <td>Janus Schmidt </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>0,5 </td>
+            <td>Ja </td>
+            <td>2009-01-24 </td>
+            <td>1-2009 </td>
         </tr>
         <tr>
-            <td>February </td>
-            <td>english </td>
-            <td>Mary </td>
-            <td>6.8 </td>
+            <td>Janus Schmidt </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>0,5 </td>
+            <td>Ja </td>
+            <td>2009-02-03 </td>
+            <td>2-2009 </td>
         </tr>
         <tr>
-            <td>February </td>
-            <td>Maths </td>
-            <td>Mary </td>
-            <td>5.4 </td>
+            <td>Janus Schmidt </td>
+            <td>ISIS styregruppe </td>
+            <td>ISIS </td>
+            <td>0,5 </td>
+            <td>Ja </td>
+            <td>2009-01-12 </td>
+            <td>1-2009 </td>
         </tr>
         <tr>
-            <td>February </td>
-            <td>Science </td>
-            <td>Mary </td>
-            <td>5.6 </td>
+            <td>Janus Schmidt </td>
+            <td>ISIS styregruppe </td>
+            <td>ISIS </td>
+            <td>9 </td>
+            <td>Ja </td>
+            <td>2009-01-22 </td>
+            <td>1-2009 </td>
         </tr>
         <tr>
-            <td>February </td>
-            <td>Art </td>
-            <td>Mary </td>
-            <td>5.9 </td>
+            <td>Janus Schmidt </td>
+            <td>ISIS styregruppe </td>
+            <td>ISIS </td>
+            <td>1 </td>
+            <td>Ja </td>
+            <td>2009-01-28 </td>
+            <td>1-2009 </td>
         </tr>
         <tr>
-            <td>February </td>
-            <td>History </td>
-            <td>Mary </td>
-            <td>6.1 </td>
+            <td>Janus Schmidt </td>
+            <td>ISIS styregruppe </td>
+            <td>ISIS </td>
+            <td>2 </td>
+            <td>Ja </td>
+            <td>2009-01-30 </td>
+            <td>1-2009 </td>
         </tr>
         <tr>
-            <td>February </td>
-            <td>French </td>
-            <td>Mary </td>
-            <td>9.3 </td>
+            <td>Janus Schmidt </td>
+            <td>ISIS styregruppe </td>
+            <td>ISIS </td>
+            <td>4 </td>
+            <td>Ja </td>
+            <td>2009-02-02 </td>
+            <td>2-2009 </td>
         </tr>
         <tr>
-            <td>March </td>
-            <td>english </td>
-            <td>Mary </td>
-            <td>4.1 </td>
+            <td>Janus Schmidt </td>
+            <td>ISISk styregruppe </td>
+            <td>ISISK </td>
+            <td>1 </td>
+            <td>Ja </td>
+            <td>2009-01-05 </td>
+            <td>1-2009 </td>
         </tr>
         <tr>
-            <td>March </td>
-            <td>Maths </td>
-            <td>Mary </td>
-            <td>3.5 </td>
+            <td>Janus Schmidt </td>
+            <td>ISISk styregruppe </td>
+            <td>ISISK </td>
+            <td>1 </td>
+            <td>Ja </td>
+            <td>2009-01-09 </td>
+            <td>1-2009 </td>
         </tr>
         <tr>
-            <td>March </td>
-            <td>Science </td>
-            <td>Mary </td>
-            <td>4.1 </td>
+            <td>Janus Schmidt </td>
+            <td>ISISk styregruppe </td>
+            <td>ISISK </td>
+            <td>1 </td>
+            <td>Ja </td>
+            <td>2009-02-04 </td>
+            <td>2-2009 </td>
         </tr>
         <tr>
-            <td>March </td>
-            <td>Art </td>
-            <td>Mary </td>
-            <td>4.8 </td>
+            <td>Janus Schmidt </td>
+            <td>ISISk styregruppe </td>
+            <td>ISISK </td>
+            <td>1,5 </td>
+            <td>Ja </td>
+            <td>2009-02-05 </td>
+            <td>2-2009 </td>
         </tr>
         <tr>
-            <td>March </td>
-            <td>History </td>
-            <td>Mary </td>
-            <td>6.7 </td>
+            <td>Janus Schmidt </td>
+            <td>ISISk styregruppe </td>
+            <td>ISISK </td>
+            <td>3 </td>
+            <td>Ja </td>
+            <td>2009-02-09 </td>
+            <td>2-2009 </td>
         </tr>
         <tr>
-            <td>March </td>
-            <td>French </td>
-            <td>Mary </td>
-            <td>9.0 </td>
+            <td>Janus Schmidt </td>
+            <td>Prøvehallen </td>
+            <td>Lokaleregistrering </td>
+            <td>2 </td>
+            <td>Ja </td>
+            <td>2009-01-23 </td>
+            <td>1-2009 </td>
         </tr>
+        <tr>
+            <td>Janus Schmidt </td>
+            <td>USG </td>
+            <td>Support </td>
+            <td>0,5 </td>
+            <td>Ja </td>
+            <td>2009-02-03 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Janus Schmidt </td>
+            <td>Jur </td>
+            <td>Udvidelse af E-blanketter på jur </td>
+            <td>6 </td>
+            <td>Ja </td>
+            <td>2009-01-07 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Janus Schmidt </td>
+            <td>Jur </td>
+            <td>Udvidelse af E-blanketter på jur </td>
+            <td>9 </td>
+            <td>Ja </td>
+            <td>2009-01-08 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Janus Schmidt </td>
+            <td>Jur </td>
+            <td>Udvidelse af E-blanketter på jur </td>
+            <td>1 </td>
+            <td>Ja </td>
+            <td>2009-01-12 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Janus Schmidt </td>
+            <td>Jur </td>
+            <td>Udvidelse af E-blanketter på jur </td>
+            <td>1 </td>
+            <td>Ja </td>
+            <td>2009-01-15 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Janus Schmidt </td>
+            <td>Jur </td>
+            <td>Udvidelse af E-blanketter på jur </td>
+            <td>3 </td>
+            <td>Ja </td>
+            <td>2009-02-02 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Janus Schmidt </td>
+            <td>Jur </td>
+            <td>Udvidelse af E-blanketter på jur </td>
+            <td>3 </td>
+            <td>Ja </td>
+            <td>2009-02-03 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Janus Schmidt </td>
+            <td>Styr På Tiden </td>
+            <td>Version 1.0 </td>
+            <td>4,5 </td>
+            <td>Nej </td>
+            <td>2009-01-12 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Janus Schmidt </td>
+            <td>Styr På Tiden </td>
+            <td>Version 1.0 </td>
+            <td>4 </td>
+            <td>Nej </td>
+            <td>2009-01-13 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Janus Schmidt </td>
+            <td>Styr På Tiden </td>
+            <td>Version 1.0 </td>
+            <td>1,5 </td>
+            <td>Nej </td>
+            <td>2009-01-15 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Janus Schmidt </td>
+            <td>Styr På Tiden </td>
+            <td>Version 1.0 </td>
+            <td>1 </td>
+            <td>Nej </td>
+            <td>2009-01-18 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Janus Schmidt </td>
+            <td>Styr På Tiden </td>
+            <td>Version 1.0 </td>
+            <td>2 </td>
+            <td>Nej </td>
+            <td>2009-02-04 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Janus Schmidt </td>
+            <td>Styr På Tiden </td>
+            <td>Version 1.0 </td>
+            <td>5 </td>
+            <td>Nej </td>
+            <td>2009-02-06 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Janus Schmidt </td>
+            <td>Styr På Tiden </td>
+            <td>Version 1.0 </td>
+            <td>10 </td>
+            <td>Nej </td>
+            <td>2009-02-07 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Janus Schmidt </td>
+            <td>Styr På Tiden </td>
+            <td>Version 1.0 </td>
+            <td>3 </td>
+            <td>Nej </td>
+            <td>2009-02-09 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Janus Schmidt </td>
+            <td>Styr På Tiden </td>
+            <td>Version 1.0 </td>
+            <td>1 </td>
+            <td>Ja </td>
+            <td>2009-01-09 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Janus Schmidt </td>
+            <td>Styr På Tiden </td>
+            <td>Version 1.0 </td>
+            <td>7 </td>
+            <td>Ja </td>
+            <td>2009-01-16 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Janus Schmidt </td>
+            <td>Styr På Tiden </td>
+            <td>Version 1.0 </td>
+            <td>2 </td>
+            <td>Ja </td>
+            <td>2009-01-21 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Janus Schmidt </td>
+            <td>Styr På Tiden </td>
+            <td>Version 1.0 </td>
+            <td>8,5 </td>
+            <td>Ja </td>
+            <td>2009-02-05 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Klima og Energiministeriet </td>
+            <td>CO2 guiden </td>
+            <td>0,75 </td>
+            <td>Ja </td>
+            <td>2009-01-16 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>RegionH </td>
+            <td>Fundraising CMS </td>
+            <td>1 </td>
+            <td>Nej </td>
+            <td>2009-01-30 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>RegionH </td>
+            <td>Fundraising CMS </td>
+            <td>0,75 </td>
+            <td>Nej </td>
+            <td>2009-02-04 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>2,25 </td>
+            <td>Nej </td>
+            <td>2009-01-02 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>0,5 </td>
+            <td>Nej </td>
+            <td>2009-01-04 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>1 </td>
+            <td>Nej </td>
+            <td>2009-01-05 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>3 </td>
+            <td>Nej </td>
+            <td>2009-01-06 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>0,75 </td>
+            <td>Nej </td>
+            <td>2009-01-07 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>2,5 </td>
+            <td>Nej </td>
+            <td>2009-01-08 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>3 </td>
+            <td>Nej </td>
+            <td>2009-01-09 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>0,5 </td>
+            <td>Nej </td>
+            <td>2009-01-12 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>2,75 </td>
+            <td>Nej </td>
+            <td>2009-01-14 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>1,75 </td>
+            <td>Nej </td>
+            <td>2009-01-15 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>3 </td>
+            <td>Nej </td>
+            <td>2009-01-16 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>1 </td>
+            <td>Nej </td>
+            <td>2009-01-18 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>0,75 </td>
+            <td>Nej </td>
+            <td>2009-01-19 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>1,5 </td>
+            <td>Nej </td>
+            <td>2009-01-20 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>1,5 </td>
+            <td>Nej </td>
+            <td>2009-01-21 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>0,5 </td>
+            <td>Nej </td>
+            <td>2009-01-22 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>2 </td>
+            <td>Nej </td>
+            <td>2009-01-23 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>3,5 </td>
+            <td>Nej </td>
+            <td>2009-01-24 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>2 </td>
+            <td>Nej </td>
+            <td>2009-01-25 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>1 </td>
+            <td>Nej </td>
+            <td>2009-01-26 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>6 </td>
+            <td>Nej </td>
+            <td>2009-01-27 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>5,25 </td>
+            <td>Nej </td>
+            <td>2009-01-28 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>2 </td>
+            <td>Nej </td>
+            <td>2009-01-29 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>2,75 </td>
+            <td>Nej </td>
+            <td>2009-01-30 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>1,5 </td>
+            <td>Nej </td>
+            <td>2009-02-02 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>4 </td>
+            <td>Nej </td>
+            <td>2009-02-03 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>2 </td>
+            <td>Nej </td>
+            <td>2009-02-04 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>1,5 </td>
+            <td>Ja </td>
+            <td>2009-01-12 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>6 </td>
+            <td>Ja </td>
+            <td>2009-01-26 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>0,75 </td>
+            <td>Ja </td>
+            <td>2009-01-28 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Styr På Tiden </td>
+            <td>Intern </td>
+            <td>0,75 </td>
+            <td>Nej </td>
+            <td>2009-01-08 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Styr På Tiden </td>
+            <td>Intern </td>
+            <td>0,5 </td>
+            <td>Nej </td>
+            <td>2009-01-09 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Styr På Tiden </td>
+            <td>Intern </td>
+            <td>0,25 </td>
+            <td>Nej </td>
+            <td>2009-01-15 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Styr På Tiden </td>
+            <td>Intern </td>
+            <td>0,5 </td>
+            <td>Nej </td>
+            <td>2009-01-16 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Styr På Tiden </td>
+            <td>Intern </td>
+            <td>0,5 </td>
+            <td>Nej </td>
+            <td>2009-01-19 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Styr På Tiden </td>
+            <td>Intern </td>
+            <td>0,5 </td>
+            <td>Nej </td>
+            <td>2009-01-20 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Styr På Tiden </td>
+            <td>Intern </td>
+            <td>2,75 </td>
+            <td>Nej </td>
+            <td>2009-01-22 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Styr På Tiden </td>
+            <td>Intern </td>
+            <td>0,25 </td>
+            <td>Nej </td>
+            <td>2009-01-27 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Styr På Tiden </td>
+            <td>Intern </td>
+            <td>1 </td>
+            <td>Nej </td>
+            <td>2009-01-28 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Styr På Tiden </td>
+            <td>Intern </td>
+            <td>3,25 </td>
+            <td>Nej </td>
+            <td>2009-01-29 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>ISISk styregruppe </td>
+            <td>ISISK </td>
+            <td>0,75 </td>
+            <td>Ja </td>
+            <td>2009-01-06 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>KU </td>
+            <td>Jobansøgningssystem </td>
+            <td>0,25 </td>
+            <td>Ja </td>
+            <td>2009-01-15 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>KU </td>
+            <td>Jobansøgningssystem </td>
+            <td>1,5 </td>
+            <td>Ja </td>
+            <td>2009-01-16 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Prøvehallen </td>
+            <td>Lokaleregistrering </td>
+            <td>0,25 </td>
+            <td>Nej </td>
+            <td>2009-01-29 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Prøvehallen </td>
+            <td>Lokaleregistrering </td>
+            <td>5 </td>
+            <td>Ja </td>
+            <td>2009-01-05 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Prøvehallen </td>
+            <td>Lokaleregistrering </td>
+            <td>2 </td>
+            <td>Ja </td>
+            <td>2009-01-06 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Prøvehallen </td>
+            <td>Lokaleregistrering </td>
+            <td>4 </td>
+            <td>Ja </td>
+            <td>2009-01-07 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Prøvehallen </td>
+            <td>Lokaleregistrering </td>
+            <td>2,5 </td>
+            <td>Ja </td>
+            <td>2009-01-08 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Prøvehallen </td>
+            <td>Lokaleregistrering </td>
+            <td>2 </td>
+            <td>Ja </td>
+            <td>2009-01-09 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Prøvehallen </td>
+            <td>Lokaleregistrering </td>
+            <td>3 </td>
+            <td>Ja </td>
+            <td>2009-01-12 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Prøvehallen </td>
+            <td>Lokaleregistrering </td>
+            <td>3 </td>
+            <td>Ja </td>
+            <td>2009-01-13 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Prøvehallen </td>
+            <td>Lokaleregistrering </td>
+            <td>3 </td>
+            <td>Ja </td>
+            <td>2009-01-14 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Prøvehallen </td>
+            <td>Lokaleregistrering </td>
+            <td>3 </td>
+            <td>Ja </td>
+            <td>2009-01-15 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Prøvehallen </td>
+            <td>Lokaleregistrering </td>
+            <td>3,25 </td>
+            <td>Ja </td>
+            <td>2009-01-20 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Prøvehallen </td>
+            <td>Lokaleregistrering </td>
+            <td>3 </td>
+            <td>Ja </td>
+            <td>2009-01-21 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Prøvehallen </td>
+            <td>Lokaleregistrering </td>
+            <td>0,75 </td>
+            <td>Ja </td>
+            <td>2009-01-22 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Prøvehallen </td>
+            <td>Lokaleregistrering </td>
+            <td>2 </td>
+            <td>Ja </td>
+            <td>2009-01-23 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Prøvehallen </td>
+            <td>Lokaleregistrering </td>
+            <td>0,5 </td>
+            <td>Ja </td>
+            <td>2009-01-29 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Prøvehallen </td>
+            <td>Lokaleregistrering </td>
+            <td>2 </td>
+            <td>Ja </td>
+            <td>2009-01-30 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Prøvehallen </td>
+            <td>Lokaleregistrering </td>
+            <td>3,25 </td>
+            <td>Ja </td>
+            <td>2009-02-02 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Prøvehallen </td>
+            <td>Lokaleregistrering </td>
+            <td>1,5 </td>
+            <td>Ja </td>
+            <td>2009-02-03 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Prøvehallen </td>
+            <td>Lokaleregistrering </td>
+            <td>3 </td>
+            <td>Ja </td>
+            <td>2009-02-04 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>SIS </td>
+            <td>SIS </td>
+            <td>0,25 </td>
+            <td>Ja </td>
+            <td>2009-01-12 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>SIS </td>
+            <td>SIS </td>
+            <td>1 </td>
+            <td>Ja </td>
+            <td>2009-01-15 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>SIS </td>
+            <td>SIS </td>
+            <td>0,25 </td>
+            <td>Ja </td>
+            <td>2009-01-16 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>SIS </td>
+            <td>SIS </td>
+            <td>1,25 </td>
+            <td>Ja </td>
+            <td>2009-01-22 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Frydenlund </td>
+            <td>Support </td>
+            <td>0,5 </td>
+            <td>Ja </td>
+            <td>2009-01-15 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Macrodot </td>
+            <td>Support </td>
+            <td>1,5 </td>
+            <td>Ja </td>
+            <td>2009-01-04 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Macrodot </td>
+            <td>Support </td>
+            <td>0,25 </td>
+            <td>Ja </td>
+            <td>2009-01-30 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>SIS </td>
+            <td>Syllabus </td>
+            <td>0,5 </td>
+            <td>Ja </td>
+            <td>2009-01-06 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>SIS </td>
+            <td>Syllabus </td>
+            <td>0,5 </td>
+            <td>Ja </td>
+            <td>2009-01-12 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>SIS </td>
+            <td>Syllabus </td>
+            <td>2 </td>
+            <td>Ja </td>
+            <td>2009-01-13 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>SIS </td>
+            <td>Syllabus </td>
+            <td>1 </td>
+            <td>Ja </td>
+            <td>2009-01-14 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>SIS </td>
+            <td>Syllabus </td>
+            <td>1,5 </td>
+            <td>Ja </td>
+            <td>2009-01-21 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>SIS </td>
+            <td>Syllabus </td>
+            <td>0,75 </td>
+            <td>Ja </td>
+            <td>2009-01-22 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>Jur </td>
+            <td>Udvidelse af E-blanketter på jur </td>
+            <td>0,5 </td>
+            <td>Nej </td>
+            <td>2009-02-04 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>GoAgile </td>
+            <td>Website </td>
+            <td>1 </td>
+            <td>Nej </td>
+            <td>2009-02-02 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>GoAgile </td>
+            <td>Website </td>
+            <td>0,25 </td>
+            <td>Ja </td>
+            <td>2009-01-12 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jesper Nielsen </td>
+            <td>GoAgile </td>
+            <td>Website </td>
+            <td>0,5 </td>
+            <td>Ja </td>
+            <td>2009-01-23 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>Frydenlund </td>
+            <td>3g </td>
+            <td>0,5 </td>
+            <td>Ja </td>
+            <td>2009-01-26 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>Frydenlund </td>
+            <td>4g </td>
+            <td>3,5 </td>
+            <td>Ja </td>
+            <td>2009-01-30 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>Frydenlund </td>
+            <td>4g </td>
+            <td>3 </td>
+            <td>Ja </td>
+            <td>2009-02-10 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>Kurs </td>
+            <td>CMS </td>
+            <td>2 </td>
+            <td>Ja </td>
+            <td>2009-01-27 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>Klima og Energiministeriet </td>
+            <td>CO2 guiden </td>
+            <td>0,25 </td>
+            <td>Ja </td>
+            <td>2009-01-05 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>Klima og Energiministeriet </td>
+            <td>CO2 guiden </td>
+            <td>1 </td>
+            <td>Ja </td>
+            <td>2009-01-26 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>Klima og Energiministeriet </td>
+            <td>CO2 guiden </td>
+            <td>3 </td>
+            <td>Ja </td>
+            <td>2009-01-27 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>Klima og Energiministeriet </td>
+            <td>CO2 guiden </td>
+            <td>4 </td>
+            <td>Ja </td>
+            <td>2009-01-28 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>Klima og Energiministeriet </td>
+            <td>CO2 guiden </td>
+            <td>0,25 </td>
+            <td>Ja </td>
+            <td>2009-02-02 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>RegionH </td>
+            <td>Fundraising CMS </td>
+            <td>0,5 </td>
+            <td>Ja </td>
+            <td>2009-01-30 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>RegionH </td>
+            <td>Fundraising CMS </td>
+            <td>1,5 </td>
+            <td>Ja </td>
+            <td>2009-02-10 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>4 </td>
+            <td>Nej </td>
+            <td>2009-01-09 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>1,5 </td>
+            <td>Nej </td>
+            <td>2009-01-12 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>0,75 </td>
+            <td>Nej </td>
+            <td>2009-01-13 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>0,75 </td>
+            <td>Nej </td>
+            <td>2009-01-14 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>1,25 </td>
+            <td>Nej </td>
+            <td>2009-01-21 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>2,5 </td>
+            <td>Nej </td>
+            <td>2009-01-27 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>0,75 </td>
+            <td>Nej </td>
+            <td>2009-01-28 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>0,5 </td>
+            <td>Nej </td>
+            <td>2009-01-29 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>2 </td>
+            <td>Nej </td>
+            <td>2009-01-30 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>1,75 </td>
+            <td>Nej </td>
+            <td>2009-02-02 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>0,5 </td>
+            <td>Ja </td>
+            <td>2009-01-28 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>Styr På Tiden </td>
+            <td>Intern </td>
+            <td>0,5 </td>
+            <td>Nej </td>
+            <td>2009-01-08 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>Styr På Tiden </td>
+            <td>Intern </td>
+            <td>0,5 </td>
+            <td>Nej </td>
+            <td>2009-01-09 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>Styr På Tiden </td>
+            <td>Intern </td>
+            <td>1,5 </td>
+            <td>Nej </td>
+            <td>2009-01-13 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>Styr På Tiden </td>
+            <td>Intern </td>
+            <td>6 </td>
+            <td>Nej </td>
+            <td>2009-01-29 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>Styr På Tiden </td>
+            <td>Intern </td>
+            <td>0,5 </td>
+            <td>Nej </td>
+            <td>2009-02-02 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>Styr På Tiden </td>
+            <td>Intern </td>
+            <td>1 </td>
+            <td>Nej </td>
+            <td>2009-02-10 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>Styr På Tiden </td>
+            <td>Intern </td>
+            <td>3 </td>
+            <td>Ja </td>
+            <td>2009-01-07 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>Nat </td>
+            <td>ISISløn </td>
+            <td>0,25 </td>
+            <td>Ja </td>
+            <td>2009-01-12 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>Fyrtårnet </td>
+            <td>IT-konsulent timer </td>
+            <td>0,25 </td>
+            <td>Ja </td>
+            <td>2009-01-28 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>Fyrtårnet </td>
+            <td>IT-konsulent timer </td>
+            <td>1 </td>
+            <td>Ja </td>
+            <td>2009-01-30 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>Prøvehallen </td>
+            <td>Lokaleregistrering </td>
+            <td>1,5 </td>
+            <td>Ja </td>
+            <td>2009-01-12 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>Prøvehallen </td>
+            <td>Lokaleregistrering </td>
+            <td>0,5 </td>
+            <td>Ja </td>
+            <td>2009-01-14 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>Prøvehallen </td>
+            <td>Lokaleregistrering </td>
+            <td>0,25 </td>
+            <td>Ja </td>
+            <td>2009-01-29 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>Prøvehallen </td>
+            <td>Lokaleregistrering </td>
+            <td>0,5 </td>
+            <td>Ja </td>
+            <td>2009-01-30 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>Frydenlund </td>
+            <td>Support </td>
+            <td>0,25 </td>
+            <td>Ja </td>
+            <td>2009-01-07 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>Frydenlund </td>
+            <td>Support </td>
+            <td>0,25 </td>
+            <td>Ja </td>
+            <td>2009-01-14 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>Macrodot </td>
+            <td>Support </td>
+            <td>0,5 </td>
+            <td>Ja </td>
+            <td>2009-01-28 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>Macrodot </td>
+            <td>Support </td>
+            <td>0,25 </td>
+            <td>Ja </td>
+            <td>2009-01-30 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>Styr På Tiden </td>
+            <td>Version 1.0 </td>
+            <td>1 </td>
+            <td>Nej </td>
+            <td>2009-01-09 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>GoAgile </td>
+            <td>Website </td>
+            <td>2 </td>
+            <td>Ja </td>
+            <td>2009-01-12 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>GoAgile </td>
+            <td>Website </td>
+            <td>4 </td>
+            <td>Ja </td>
+            <td>2009-01-13 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>GoAgile </td>
+            <td>Website </td>
+            <td>4,5 </td>
+            <td>Ja </td>
+            <td>2009-01-14 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>GoAgile </td>
+            <td>Website </td>
+            <td>4 </td>
+            <td>Ja </td>
+            <td>2009-01-21 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>GoAgile </td>
+            <td>Website </td>
+            <td>0,5 </td>
+            <td>Ja </td>
+            <td>2009-01-29 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>GoAgile </td>
+            <td>Website </td>
+            <td>1 </td>
+            <td>Ja </td>
+            <td>2009-01-30 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>GoAgile </td>
+            <td>Website </td>
+            <td>3,5 </td>
+            <td>Ja </td>
+            <td>2009-02-02 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Jon Bertelsen </td>
+            <td>Klima og Energiministeriet </td>
+            <td>Website crawler </td>
+            <td>0,75 </td>
+            <td>Ja </td>
+            <td>2009-01-29 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>Frydenlund </td>
+            <td>2g </td>
+            <td>0,5 </td>
+            <td>Ja </td>
+            <td>2009-02-05 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>Metalogic </td>
+            <td>Apps </td>
+            <td>0,5 </td>
+            <td>Nej </td>
+            <td>2009-01-27 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>Metalogic </td>
+            <td>Apps </td>
+            <td>0,5 </td>
+            <td>Nej </td>
+            <td>2009-02-09 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>Metalogic </td>
+            <td>Apps </td>
+            <td>3 </td>
+            <td>Ja </td>
+            <td>2009-02-10 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>SIS </td>
+            <td>Evaluering </td>
+            <td>0,5 </td>
+            <td>Ja </td>
+            <td>2009-02-06 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>RegionH </td>
+            <td>Fundraising CMS </td>
+            <td>1 </td>
+            <td>Ja </td>
+            <td>2009-01-12 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>RegionH </td>
+            <td>Fundraising CMS </td>
+            <td>2,5 </td>
+            <td>Ja </td>
+            <td>2009-01-19 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>RegionH </td>
+            <td>Fundraising CMS </td>
+            <td>1 </td>
+            <td>Ja </td>
+            <td>2009-01-20 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>RegionH </td>
+            <td>Fundraising CMS </td>
+            <td>0,5 </td>
+            <td>Ja </td>
+            <td>2009-01-23 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>RegionH </td>
+            <td>Fundraising CMS </td>
+            <td>2,5 </td>
+            <td>Ja </td>
+            <td>2009-01-25 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>RegionH </td>
+            <td>Fundraising CMS </td>
+            <td>2 </td>
+            <td>Ja </td>
+            <td>2009-02-03 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>RegionH </td>
+            <td>Fundraising CMS </td>
+            <td>0,5 </td>
+            <td>Ja </td>
+            <td>2009-02-09 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>RegionH </td>
+            <td>Fundraising CMS </td>
+            <td>2 </td>
+            <td>Ja </td>
+            <td>2009-02-10 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>1 </td>
+            <td>Nej </td>
+            <td>2009-01-03 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>1 </td>
+            <td>Nej </td>
+            <td>2009-01-06 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>4 </td>
+            <td>Nej </td>
+            <td>2009-01-07 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>0,5 </td>
+            <td>Nej </td>
+            <td>2009-01-08 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>1 </td>
+            <td>Nej </td>
+            <td>2009-01-12 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>0,5 </td>
+            <td>Nej </td>
+            <td>2009-01-13 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>0,5 </td>
+            <td>Nej </td>
+            <td>2009-01-15 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>6 </td>
+            <td>Nej </td>
+            <td>2009-01-21 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>0,5 </td>
+            <td>Nej </td>
+            <td>2009-01-24 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>2 </td>
+            <td>Nej </td>
+            <td>2009-01-25 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>7,5 </td>
+            <td>Nej </td>
+            <td>2009-01-26 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>3,5 </td>
+            <td>Nej </td>
+            <td>2009-01-27 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>4 </td>
+            <td>Nej </td>
+            <td>2009-01-28 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>0,5 </td>
+            <td>Nej </td>
+            <td>2009-02-02 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>1,5 </td>
+            <td>Nej </td>
+            <td>2009-02-03 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>1 </td>
+            <td>Nej </td>
+            <td>2009-02-04 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>1,5 </td>
+            <td>Nej </td>
+            <td>2009-02-05 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>1,5 </td>
+            <td>Nej </td>
+            <td>2009-02-06 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>2,5 </td>
+            <td>Nej </td>
+            <td>2009-02-09 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>Metalogic </td>
+            <td>Intern </td>
+            <td>1 </td>
+            <td>Nej </td>
+            <td>2009-02-10 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>ISIS styregruppe </td>
+            <td>ISIS </td>
+            <td>0,5 </td>
+            <td>Ja </td>
+            <td>2009-01-04 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>ISIS styregruppe </td>
+            <td>ISIS </td>
+            <td>0,5 </td>
+            <td>Ja </td>
+            <td>2009-01-06 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>ISIS styregruppe </td>
+            <td>ISIS </td>
+            <td>0,5 </td>
+            <td>Ja </td>
+            <td>2009-01-07 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>ISIS styregruppe </td>
+            <td>ISIS </td>
+            <td>3 </td>
+            <td>Ja </td>
+            <td>2009-01-12 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>ISIS styregruppe </td>
+            <td>ISIS </td>
+            <td>0,5 </td>
+            <td>Ja </td>
+            <td>2009-01-13 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>ISIS styregruppe </td>
+            <td>ISIS </td>
+            <td>0,5 </td>
+            <td>Ja </td>
+            <td>2009-01-19 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>ISIS styregruppe </td>
+            <td>ISIS </td>
+            <td>1,5 </td>
+            <td>Ja </td>
+            <td>2009-01-23 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>ISIS styregruppe </td>
+            <td>ISIS </td>
+            <td>0,5 </td>
+            <td>Ja </td>
+            <td>2009-01-24 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>ISIS styregruppe </td>
+            <td>ISIS </td>
+            <td>1 </td>
+            <td>Ja </td>
+            <td>2009-01-25 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>ISIS styregruppe </td>
+            <td>ISIS </td>
+            <td>0,5 </td>
+            <td>Ja </td>
+            <td>2009-01-26 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>ISIS styregruppe </td>
+            <td>ISIS </td>
+            <td>0,5 </td>
+            <td>Ja </td>
+            <td>2009-01-27 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>ISIS styregruppe </td>
+            <td>ISIS </td>
+            <td>1 </td>
+            <td>Ja </td>
+            <td>2009-01-28 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>ISIS styregruppe </td>
+            <td>ISIS </td>
+            <td>0,5 </td>
+            <td>Ja </td>
+            <td>2009-01-29 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>ISIS styregruppe </td>
+            <td>ISIS </td>
+            <td>0,5 </td>
+            <td>Ja </td>
+            <td>2009-02-02 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>ISIS styregruppe </td>
+            <td>ISIS </td>
+            <td>0,5 </td>
+            <td>Ja </td>
+            <td>2009-02-06 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>ISIS styregruppe </td>
+            <td>ISIS </td>
+            <td>0,5 </td>
+            <td>Ja </td>
+            <td>2009-02-09 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>ISISk styregruppe </td>
+            <td>ISISK </td>
+            <td>0,5 </td>
+            <td>Ja </td>
+            <td>2009-01-06 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>ISISk styregruppe </td>
+            <td>ISISK </td>
+            <td>1 </td>
+            <td>Ja </td>
+            <td>2009-01-11 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>ISISk styregruppe </td>
+            <td>ISISK </td>
+            <td>1 </td>
+            <td>Ja </td>
+            <td>2009-01-13 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>ISISk styregruppe </td>
+            <td>ISISK </td>
+            <td>0,5 </td>
+            <td>Ja </td>
+            <td>2009-01-14 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>ISISk styregruppe </td>
+            <td>ISISK </td>
+            <td>1 </td>
+            <td>Ja </td>
+            <td>2009-01-15 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>ISISk styregruppe </td>
+            <td>ISISK </td>
+            <td>0,5 </td>
+            <td>Ja </td>
+            <td>2009-01-16 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>ISISk styregruppe </td>
+            <td>ISISK </td>
+            <td>0,5 </td>
+            <td>Ja </td>
+            <td>2009-01-18 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>ISISk styregruppe </td>
+            <td>ISISK </td>
+            <td>1,5 </td>
+            <td>Ja </td>
+            <td>2009-01-19 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>ISISk styregruppe </td>
+            <td>ISISK </td>
+            <td>0,5 </td>
+            <td>Ja </td>
+            <td>2009-01-21 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>ISISk styregruppe </td>
+            <td>ISISK </td>
+            <td>0,5 </td>
+            <td>Ja </td>
+            <td>2009-01-24 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>ISISk styregruppe </td>
+            <td>ISISK </td>
+            <td>1,5 </td>
+            <td>Ja </td>
+            <td>2009-01-25 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>ISISk styregruppe </td>
+            <td>ISISK </td>
+            <td>1,5 </td>
+            <td>Ja </td>
+            <td>2009-01-27 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>ISISk styregruppe </td>
+            <td>ISISK </td>
+            <td>0,5 </td>
+            <td>Ja </td>
+            <td>2009-02-02 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>ISISk styregruppe </td>
+            <td>ISISK </td>
+            <td>1,5 </td>
+            <td>Ja </td>
+            <td>2009-02-09 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>Nat </td>
+            <td>ISISløn </td>
+            <td>0,5 </td>
+            <td>Ja </td>
+            <td>2009-01-12 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>Nat </td>
+            <td>ISISløn </td>
+            <td>0,5 </td>
+            <td>Ja </td>
+            <td>2009-01-14 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>Nat </td>
+            <td>ISISløn </td>
+            <td>0,5 </td>
+            <td>Ja </td>
+            <td>2009-01-15 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>Prøvehallen </td>
+            <td>Lokaleregistrering </td>
+            <td>0,5 </td>
+            <td>Ja </td>
+            <td>2009-02-03 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>Styr På Tiden </td>
+            <td>Version 1.0 </td>
+            <td>0,5 </td>
+            <td>Nej </td>
+            <td>2009-01-07 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>Styr På Tiden </td>
+            <td>Version 1.0 </td>
+            <td>4,5 </td>
+            <td>Nej </td>
+            <td>2009-01-08 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>Styr På Tiden </td>
+            <td>Version 1.0 </td>
+            <td>1 </td>
+            <td>Nej </td>
+            <td>2009-01-13 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>Styr På Tiden </td>
+            <td>Version 1.0 </td>
+            <td>5 </td>
+            <td>Nej </td>
+            <td>2009-01-16 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>Styr På Tiden </td>
+            <td>Version 1.0 </td>
+            <td>5,5 </td>
+            <td>Nej </td>
+            <td>2009-01-17 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>Styr På Tiden </td>
+            <td>Version 1.0 </td>
+            <td>2,5 </td>
+            <td>Nej </td>
+            <td>2009-01-18 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>Styr På Tiden </td>
+            <td>Version 1.0 </td>
+            <td>0,5 </td>
+            <td>Nej </td>
+            <td>2009-01-19 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>Styr På Tiden </td>
+            <td>Version 1.0 </td>
+            <td>1,5 </td>
+            <td>Nej </td>
+            <td>2009-01-20 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>Styr På Tiden </td>
+            <td>Version 1.0 </td>
+            <td>0,5 </td>
+            <td>Nej </td>
+            <td>2009-01-21 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>Styr På Tiden </td>
+            <td>Version 1.0 </td>
+            <td>3 </td>
+            <td>Nej </td>
+            <td>2009-01-28 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>Styr På Tiden </td>
+            <td>Version 1.0 </td>
+            <td>0 </td>
+            <td>Nej </td>
+            <td>2009-01-29 </td>
+            <td>1-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>Styr På Tiden </td>
+            <td>Version 1.0 </td>
+            <td>0,5 </td>
+            <td>Nej </td>
+            <td>2009-02-02 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>Styr På Tiden </td>
+            <td>Version 1.0 </td>
+            <td>2 </td>
+            <td>Nej </td>
+            <td>2009-02-03 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>Styr På Tiden </td>
+            <td>Version 1.0 </td>
+            <td>5 </td>
+            <td>Nej </td>
+            <td>2009-02-04 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>Styr På Tiden </td>
+            <td>Version 1.0 </td>
+            <td>3,5 </td>
+            <td>Nej </td>
+            <td>2009-02-05 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>Styr På Tiden </td>
+            <td>Version 1.0 </td>
+            <td>3 </td>
+            <td>Nej </td>
+            <td>2009-02-06 </td>
+            <td>2-2009 </td>
+        </tr>
+        <tr>
+            <td>Morten Kjerulff </td>
+            <td>Styr På Tiden </td>
+            <td>Version 1.0 </td>
+            <td>0,5 </td>
+            <td>Nej </td>
+            <td>2009-02-10 </td>
+            <td>2-2009 </td>
+        </tr>
+    </tbody>
     </table>
+
   </div>
 </div>
 
