@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>jquery.pivot test page</title>
+    <link href="stylsheet.css" rel="stylesheet" type="text/css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script src="script/jquery.pivot.js"></script>
+    <script>
+    $(function () {
+        $('#run').click(function () {
+            $('table').hide();
+            $('#res').pivot({
+                source: $('#example1'),
+                formatFunc: function (n) { return jQuery.fn.pivot.formatUK(n, 2); },
+                onResultCellClicked: function (data) { alert(dumpObj(data, "data")); }
+            });
+        }); 
+    });
+    
+    function dumpObj(obj, name, depth) {
+        var indentTpl = "    ",
+            indent = "",
+            MAX_DUMP_DEPTH = 10,
+            propertyStrings = [],
+            child = null,
+            i, item, output;
+
+        depth = depth || 1;
+
+        for (i = 0; i < depth; i += 1) {
+            indent += indentTpl;
+        }
+
+
+        if (depth > MAX_DUMP_DEPTH) {
+            return indent + name + ": <Maximum Depth Reached>\n";
+        }
+        if (typeof obj === "object") {
+            output = indent + name + " : {\n";
+            for (item in obj) {
+                if (obj.hasOwnProperty(item)) {
+                    try {
+                        child = obj[item];
+                    } catch (e) {
+                        child = "<Unable to Evaluate>";
+                    }
+                    if (typeof child === "object") {
+                        propertyStrings.push(dumpObj(child, item, depth + 1));
+                    } else {
+                        propertyStrings.push(indent + indentTpl + item + ": " + (typeof child === "string" ? "'" + child + "'" : child));
+                    }
+                }
+            }
+            output += propertyStrings.join(', \n') + "}";
+            return output;
+        } else if (typeof obj === "string") {
+            return "'" + obj + "'";
+        } else {
+            return obj;
+        }
+    }
+    </script>
+    <style>
+    th.groupby span.level0 {
+        margin-left: 18px;
+        padding-left: 18px;
+    }
+    th.groupby span.level1 {
+        margin-left: 36px;
+        padding-left: 18px;
+    }
+    th.groupby span.level2 {
+        margin-left: 54px;
+        padding-left: 18px;
+    }
+    th.groupby span.level3 {
+        margin-left: 72px;
+        padding-left: 18px;
+    }
+    th.groupby span.level4 {
+        margin-left: 90px;
+        padding-left: 18px;
+    }
+    th.groupby span.level5 {
+        margin-left: 108px;
+        padding-left: 18px;
+    }
+    </style>
+</head>
+<body>
+
+<button id="run">Run</button>
+
+<div id="demos">
+  <div id="res">
+  </div>
+  <div id="sourcetables">
+    <table id="example1" dataid="An optional sourcetable identifier" >
+        <tr>
+            <th pivot="true">Month </th>
+            <th groupbyrank="2">Subject </th>
+            <th groupbyrank="1" dataid="An optional id.">Student </th>
+            <th result="true">Score </th>
+        </tr>
+        <tr>
+            <td>January</td>
+            <td>English</td>
+            <td>Elisa</td>
+            <td>8.7</td>
+        </tr>
+        <tr>
+            <td>January </td>
+            <td>Maths </td>
+            <td>Elisa </td>
+            <td>6.5 </td>
+        </tr>
+        <tr>
+            <td>January </td>
+            <td>Science </td>
+            <td>Elisa </td>
+            <td>5.8 </td>
+        </tr>
+        <tr>
+            <td>January </td>
+            <td>Art </td>
+            <td>Elisa </td>
+            <td>8.9 </td>
+        </tr>
+        <tr>
+            <td>January </td>
+            <td>History </td>
+            <td>Elisa </td>
+            <td>8.1 </td>
+        </tr>
+        <tr>
+            <td>January </td>
+            <td>French </td>
+            <td>Elisa </td>
+            <td>6.2 </td>
+        </tr>
+        <tr>
+            <td>February </td>
+            <td>English </td>
+            <td>Elisa </td>
+            <td>5.1 </td>
+        </tr>
+        <tr>
+            <td>February </td>
+            <td>Maths </td>
+            <td>Elisa </td>
+            <td>7.2 </td>
+        </tr>
+        <tr>
+            <td>February </td>
+            <td>Science </td>
+            <td>Elisa </td>
+            <td>8.9 </td>
+        </tr>
+        <tr>
+            <td>February </td>
+            <td>Art </td>
+            <td>Elisa </td>
+            <td>8.3 </td>
+        </tr>
+        <tr>
+            <td>February </td>
+            <td>History </td>
+            <td>Elisa </td>
+            <td>8.4 </td>
+        </tr>
+        <tr>
+            <td>February </td>
+            <td>French </td>
+            <td>Elisa </td>
+            <td>5.7 </td>
+        </tr>
+        <tr>
+            <td>March </td>
+            <td>English </td>
+            <td>Elisa </td>
+            <td>4.1 </td>
+        </tr>
+        <tr>
+            <td>March </td>
+            <td>Maths </td>
+            <td>Elisa </td>
+            <td>7.1 </td>
+        </tr>
+        <tr>
+            <td>March </td>
+            <td>Science </td>
+            <td>Elisa </td>
+            <td>4.1 </td>
+        </tr>
+        <tr>
+            <td>March </td>
+            <td>Art </td>
+            <td>Elisa </td>
+            <td>9.2 </td>
+        </tr>
+        <tr>
+            <td>March </td>
+            <td>History </td>
+            <td>Elisa </td>
+            <td>9.1 </td>
+        </tr>
+        <tr>
+            <td>March </td>
+            <td>French </td>
+            <td>Elisa </td>
+            <td>5.6 </td>
+        </tr>
+        <tr>
+            <td>January </td>
+            <td>english </td>
+            <td>Mary </td>
+            <td>8.7 </td>
+        </tr>
+        <tr>
+            <td>January </td>
+            <td>Maths </td>
+            <td>Mary </td>
+            <td>5.3 </td>
+        </tr>
+        <tr>
+            <td>January </td>
+            <td>Science </td>
+            <td>Mary </td>
+            <td>3.5 </td>
+        </tr>
+        <tr>
+            <td>January </td>
+            <td>Art </td>
+            <td>Mary </td>
+            <td>6.1 </td>
+        </tr>
+        <tr>
+            <td>January </td>
+            <td>History </td>
+            <td>Mary </td>
+            <td>5.8 </td>
+        </tr>
+        <tr>
+            <td>January </td>
+            <td>French </td>
+            <td>Mary </td>
+            <td>9.2 </td>
+        </tr>
+        <tr>
+            <td>February </td>
+            <td>english </td>
+            <td>Mary </td>
+            <td>6.8 </td>
+        </tr>
+        <tr>
+            <td>February </td>
+            <td>Maths </td>
+            <td>Mary </td>
+            <td>5.4 </td>
+        </tr>
+        <tr>
+            <td>February </td>
+            <td>Science </td>
+            <td>Mary </td>
+            <td>5.6 </td>
+        </tr>
+        <tr>
+            <td>February </td>
+            <td>Art </td>
+            <td>Mary </td>
+            <td>5.9 </td>
+        </tr>
+        <tr>
+            <td>February </td>
+            <td>History </td>
+            <td>Mary </td>
+            <td>6.1 </td>
+        </tr>
+        <tr>
+            <td>February </td>
+            <td>French </td>
+            <td>Mary </td>
+            <td>9.3 </td>
+        </tr>
+        <tr>
+            <td>March </td>
+            <td>english </td>
+            <td>Mary </td>
+            <td>4.1 </td>
+        </tr>
+        <tr>
+            <td>March </td>
+            <td>Maths </td>
+            <td>Mary </td>
+            <td>3.5 </td>
+        </tr>
+        <tr>
+            <td>March </td>
+            <td>Science </td>
+            <td>Mary </td>
+            <td>4.1 </td>
+        </tr>
+        <tr>
+            <td>March </td>
+            <td>Art </td>
+            <td>Mary </td>
+            <td>4.8 </td>
+        </tr>
+        <tr>
+            <td>March </td>
+            <td>History </td>
+            <td>Mary </td>
+            <td>6.7 </td>
+        </tr>
+        <tr>
+            <td>March </td>
+            <td>French </td>
+            <td>Mary </td>
+            <td>9.0 </td>
+        </tr>
+    </table>
+  </div>
+</div>
+
+</body>
+</html>

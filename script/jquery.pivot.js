@@ -1,4 +1,14 @@
-﻿/*global jQuery, JSON, $, alert, document, AdapterObject, PagerObject, FilterObject, SortObject, HideColumns */
+﻿/**
+ * pivot: Columns
+ * groupbyrank: Order of Rows
+ * result: Value
+ * 
+ * TODO:
+ *  - custom aggregate function
+ *  - Row headers in one column.
+ */
+
+/*global jQuery, JSON, $, alert, document, AdapterObject, PagerObject, FilterObject, SortObject, HideColumns */
 (function ($) {
     var opts, lib = {};
     lib.StringBuilder = function (value) { this.strings = [""]; this.append(value); };
@@ -99,18 +109,24 @@
         var i, col, col1, sb, item, itemtext, rowSum, result, resCell,
             gbCols = adapter.alGroupByCols,
             pivotCols = adapter.uniquePivotValues;
-
+        
         for (i = 0; i < treeNode.children.length; i += 1) {
             sb = new lib.StringBuilder();
             item = treeNode.children[i];
             itemtext = (item.groupbyText === undefined || item.groupbyText === null || item.groupbyText === '&nbsp;' || item.groupbyText === '') ? opts.noGroupByText : item.groupbyText;
+            
+            // Create Data Row
             sb.append('<tr class="level');
             sb.append(item.groupbylevel);
             sb.append('">');
+            
+            // Build groupby column cells
             for (col = 0; col < gbCols.length; col += 1) {
                 sb.append('<th class="groupby level');
                 sb.append(col);
                 sb.append('">');
+                
+                // Add cell text under appropriate groupby column
                 if (gbCols[col].colindex === item.colindex) {
                     if (item.children.length > 0) {
                         sb.append('<span class="foldunfold collapsed">');
@@ -131,10 +147,11 @@
             belowThisRow = $(sb.toString()).insertAfter(belowThisRow);
             belowThisRow.find('.foldunfold').data("status", { bDatabound: false, treeNode: item });
 
-            rowSum = 0.0;
+            rowSum = 0.0; // Calculates Row Sum
 
+            // Build Result Cells
             for (col1 = 0; col1 < pivotCols.length; col1 += 1) {
-                result = getResValue(item, pivotCols[col1].pivotValue);
+                result = getResValue(item, pivotCols[col1].pivotValue); // Calculates Cell Value (sum)x 
                 if (opts.bTotals) {
                     rowSum += result;
                 }
@@ -146,6 +163,7 @@
                 resCell.data("def", { pivot: pivotCols[col1], treeNode: item });
             }
 
+            // Build Row Total Cell
             if (opts.bTotals) {
                 sb.clear();
                 sb.append('<td class="total">');
@@ -287,6 +305,7 @@
                     $obj.find(".resultcell").live('click', resultCellClicked);
                 }
 
+                // Build Table
                 makeCollapsed(adapter, $obj);
             }
 
