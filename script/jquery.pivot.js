@@ -134,7 +134,9 @@
                         sb.append(' </span>');
                     }
                     else {
+                        sb.append('<span>');
                         sb.append(itemtext);
+                        sb.append(' </span>');
                     }
                 }
                 else {
@@ -182,6 +184,7 @@
             rowSum = 0.0;
 
         //headerrow
+        // Build Groupby Headers
         sb.append('<tr class="head">');
         for (i = 0; i < gbCols.length; i += 1) {
             sb.append('<th class="groupby level');
@@ -191,12 +194,14 @@
             sb.append('</th>');
         }
 
+        // Build Pivot Column Headers
         for (i1 = 0; i1 < pivotCols.length; i1 += 1) {
             sb.append('<th class="pivotcol">');
             sb.append(pivotCols[i1].pivotValue);
             sb.append('</th>');
         }
 
+        // Build Total Column Header
         if (opts.bTotals) {
             sb.append('<th class="total">Total</th>');
         }
