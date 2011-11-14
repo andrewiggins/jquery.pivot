@@ -109,7 +109,9 @@
         var i, col, col1, sb, item, itemtext, rowSum, result, resCell, margin, padding,
             gbCols = adapter.alGroupByCols,
             pivotCols = adapter.uniquePivotValues,
-            consolidate = $('table.pivot').data('opts').consolidateGroupByCols;
+            localopts = $('table.pivot').data('opts'),
+            consolidate = localopts.consolidateGroupByCols,
+            onResultCellClicked = localopts.onResultCellClicked;
         
         for (i = 0; i < treeNode.children.length; i += 1) {
             sb = new lib.StringBuilder();
@@ -185,11 +187,14 @@
                     rowSum += result;
                 }
                 sb.clear();
-                sb.append('<td class="resultcell">');
+                if (onResultCellClicked)
+                    sb.append('<td class="resultcellclickable">');
+                else
+                    sb.append('<td class="resultcell">');
                 sb.append(opts.formatFunc(result));
                 sb.append('</td>');
                 resCell = $(sb.toString()).appendTo(belowThisRow);
-                resCell.data("def", { pivot: pivotCols[col1], treeNode: item });
+                resCell.data("def", { pivot: pivotCols[col1], treeNode: item});
             }
 
             // Build Row Total Cell
