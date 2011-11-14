@@ -523,7 +523,8 @@
         var cellIndex, cellcount, rowIndex, rowcount, cellIndex1, cellcount1, el, eltext, col, cells, row,
             data = { dataid: sourceTable.attr("dataid"), columns: [], rows: [] },
             //exctract header info
-            rows = $('tbody > tr', sourceTable),
+            //rows = $('tbody > tr', sourceTable),
+            rows = $('tr', sourceTable),
             columnNames = [];
 
         for (cellIndex = 0, cellcount = rows[0].cells.length; cellIndex < cellcount; cellIndex += 1) {

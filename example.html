@@ -6,12 +6,15 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
     <script src="script/jquery.pivot.js"></script>
     <script>
+    var table = '#example3';
     $(function () {
+        $('table').hide();
+        $(table).show();
         $('#back').hide();
         
-        $('#example3').click(function () {
+        $(table).click(function () {
             $('h3').hide();
-            $('table').hide();
+            $(table).hide();
             $('#back').show();
             
             $('#res').show();
@@ -26,7 +29,7 @@
         
         $('#back').click(function () {
             $('h3').show();
-            $('table').show();
+            $(table).show();
             $(this).hide();
             
             $('#res').hide();
@@ -2556,7 +2559,6 @@
         </tr>
     </tbody>
     </table>
-
   </div>
 </div>
 
