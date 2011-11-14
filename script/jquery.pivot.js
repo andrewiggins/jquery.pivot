@@ -122,47 +122,55 @@
             sb.append('">');
             
             // Build groupby column cells
-            for (col = 0; col < gbCols.length; col += 1) {
+            if (consolidate == true) {
                 sb.append('<th class="groupby level');
                 sb.append(col);
                 sb.append('">');
                 
-                // Add cell text under appropriate groupby column
-                if (consolidate == true && col == 0) {
-                    margin = 18*item.colindex;
-                    if (item.children.length > 0) {
-                        style = 'style="margin-left:'+margin+'px;"';
-                        
-                        sb.append('<span class="foldunfold collapsed" '+style+'>');
-                        sb.append(itemtext);
-                        sb.append(' </span>');
-                    }
-                    else {
-                        padding = 18;
-                        style = 'style="margin-left:'+margin+'px; padding-left:'+padding+'px;"';
-                        
-                        sb.append('<span '+style+'>');
-                        sb.append(itemtext);
-                        sb.append(' </span>');
-                    }
-                }   
-                else if(consolidate == false && gbCols[col].colindex === item.colindex) {
-                    if (item.children.length > 0) {
-                        sb.append('<span class="foldunfold collapsed">');
-                        sb.append(itemtext);
-                        sb.append(' </span>');
-                    }
-                    else {
-                        sb.append('<span>');
-                        sb.append(itemtext);
-                        sb.append(' </span>');
-                    }
+                margin = 22*item.colindex;
+                if (item.children.length > 0) {
+                    style = 'style="margin-left:'+margin+'px;"';
+                    
+                    sb.append('<span class="foldunfold collapsed" '+style+'>');
+                    sb.append(itemtext);
+                    sb.append(' </span>');
                 }
                 else {
-                    sb.append(' ');
+                    padding = 18;
+                    style = 'style="margin-left:'+margin+'px; padding-left:'+padding+'px;"';
+                    
+                    sb.append('<span '+style+'>');
+                    sb.append(itemtext);
+                    sb.append(' </span>');
                 }
-
+                
                 sb.append('</th>');
+            }   
+            else {
+                for (col = 0; col < gbCols.length; col += 1) {
+                    sb.append('<th class="groupby level');
+                    sb.append(col);
+                    sb.append('">');
+                    
+                    // Add cell text under appropriate groupby column
+                    if(gbCols[col].colindex === item.colindex) {
+                        if (item.children.length > 0) {
+                            sb.append('<span class="foldunfold collapsed">');
+                            sb.append(itemtext);
+                            sb.append(' </span>');
+                        }
+                        else {
+                            sb.append('<span>');
+                            sb.append(itemtext);
+                            sb.append(' </span>');
+                        }
+                    }
+                    else {
+                        sb.append(' ');
+                    }
+    
+                    sb.append('</th>');
+                }
             }
             sb.append('</tr>');
             belowThisRow = $(sb.toString()).insertAfter(belowThisRow);
@@ -205,12 +213,21 @@
         //headerrow
         // Build Groupby Headers
         sb.append('<tr class="head">');
-        for (i = 0; i < gbCols.length; i += 1) {
+        
+        if (opts.consolidateGroupByCols) {
             sb.append('<th class="groupby level');
             sb.append(i);
             sb.append('">');
-            sb.append(gbCols[i].text);
             sb.append('</th>');
+        }
+        else {
+            for (i = 0; i < gbCols.length; i += 1) {
+                sb.append('<th class="groupby level');
+                sb.append(i);
+                sb.append('">');
+                sb.append(gbCols[i].text);
+                sb.append('</th>');
+            }
         }
 
         // Build Pivot Column Headers
@@ -229,8 +246,11 @@
         //make sum row
         if (opts.bTotals) {
             sb.append('<tr class="total">');
-            sb.append('<th class="total" colspan="');
-            sb.append(gbCols.length);
+            sb.append('<th class="total"');
+            if (!opts.consolidateGroupByCols){
+                sb.append('colspan="');
+                sb.append(gbCols.length);
+            }
             sb.append('">Total</th>');
             for (col = 0; col < pivotCols.length; col += 1) {
                 result = getResValue(adapter.tree, pivotCols[col].pivotValue);
