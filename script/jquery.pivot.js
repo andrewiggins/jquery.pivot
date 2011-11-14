@@ -106,9 +106,10 @@
     }
 
     function appendChildRows(treeNode, belowThisRow, adapter) {
-        var i, col, col1, sb, item, itemtext, rowSum, result, resCell,
+        var i, col, col1, sb, item, itemtext, rowSum, result, resCell, margin, padding,
             gbCols = adapter.alGroupByCols,
-            pivotCols = adapter.uniquePivotValues;
+            pivotCols = adapter.uniquePivotValues,
+            consolidate = $('table.pivot').data('opts').consolidateGroupByCols;
         
         for (i = 0; i < treeNode.children.length; i += 1) {
             sb = new lib.StringBuilder();
@@ -127,7 +128,25 @@
                 sb.append('">');
                 
                 // Add cell text under appropriate groupby column
-                if (gbCols[col].colindex === item.colindex) {
+                if (consolidate == true && col == 0) {
+                    margin = 18*item.colindex;
+                    if (item.children.length > 0) {
+                        style = 'style="margin-left:'+margin+'px;"';
+                        
+                        sb.append('<span class="foldunfold collapsed" '+style+'>');
+                        sb.append(itemtext);
+                        sb.append(' </span>');
+                    }
+                    else {
+                        padding = 18;
+                        style = 'style="margin-left:'+margin+'px; padding-left:'+padding+'px;"';
+                        
+                        sb.append('<span '+style+'>');
+                        sb.append(itemtext);
+                        sb.append(' </span>');
+                    }
+                }   
+                else if(consolidate == false && gbCols[col].colindex === item.colindex) {
                     if (item.children.length > 0) {
                         sb.append('<span class="foldunfold collapsed">');
                         sb.append(itemtext);
@@ -176,7 +195,7 @@
         }
     }
 
-    function makeCollapsed(adapter, $obj) {
+    function makeCollapsed(adapter, $obj, opts) {
         var i, i1, col, result, $pivottable,
             sb = new lib.StringBuilder('<table class="pivot">'),
             gbCols = adapter.alGroupByCols,
@@ -232,7 +251,7 @@
         //top level rows
         $obj.html('');
         $pivottable = $(sb.toString()).appendTo($obj);
-        $pivottable.data('jquery.pivot.adapter', adapter);
+        $pivottable.data({'jquery.pivot.adapter': adapter, 'opts': opts});
         appendChildRows(adapter.tree, $('tr:first', $pivottable), adapter);
     }
 
@@ -311,7 +330,7 @@
                 }
 
                 // Build Table
-                makeCollapsed(adapter, $obj);
+                makeCollapsed(adapter, $obj, opts);
             }
 
             if ($obj.html() === '') {
@@ -330,7 +349,8 @@
         onResultCellClicked: null,  //Method thats called when a result cell is clicked. This can be used to call server and present details for that cell.
         noGroupByText: 'No value', //Text used if no data is available for specific groupby and pivot value.
         noDataText: 'No data', //Text used if source data is empty.
-        separatorchar: ', '
+        separatorchar: ', ',
+        consolidateGroupByCols: false
     };
 
     $.fn.pivot.formatDK = function (num, decimals) { return this.formatLocale(num, decimals, '.', ','); };

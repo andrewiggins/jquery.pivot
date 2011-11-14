@@ -7,15 +7,30 @@
     <script src="script/jquery.pivot.js"></script>
     <script>
     $(function () {
+        $('#back').hide();
+        
         $('#example3').click(function () {
-            $('h1').hide();
+            $('h3').hide();
             $('table').hide();
+            $('#back').show();
+            
+            $('#res').show();
+            $('#res').html('');
             $('#res').pivot({
                 source: $(this),
                 formatFunc: function (n) { return jQuery.fn.pivot.formatUK(n, 2); },
-                onResultCellClicked: function (data) { alert(dumpObj(data, "data")); }
+                onResultCellClicked: function (data) { alert(dumpObj(data, "data")); },
+                consolidateGroupByCols: true
             });
         }); 
+        
+        $('#back').click(function () {
+            $('h3').show();
+            $('table').show();
+            $(this).hide();
+            
+            $('#res').hide();
+        });
     });
     
     function dumpObj(obj, name, depth) {
@@ -91,7 +106,8 @@
 </head>
 <body>
 
-<h1>Click Table to convert to Pivot Table</h1>
+<h3>Click Table to convert to Pivot Table</h3>
+<a id="back" href="#">Back</a>
 
 <div id="demos">
   <div id="res">
