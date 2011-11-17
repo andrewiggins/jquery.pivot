@@ -242,8 +242,10 @@
     }
 
     function makeCollapsed(adapter, $obj, opts) {
-        var i, i1, col, result, $pivottable,
-            sb = new lib.StringBuilder('<table class="pivot">'),
+        $obj.html('');
+        var i, i1, col, result, 
+            $pivottable = $('<table class="pivot"></table>').appendTo($obj),
+            sb = new lib.StringBuilder(''),
             gbCols = adapter.alGroupByCols,
             pivotCols = adapter.uniquePivotValues,
             rowSum = 0.0;
@@ -304,11 +306,12 @@
             sb.append('</td>');
             sb.append('</tr>');
         }
-        sb.append('</table>');
+        //sb.append('</table>');
 
         //top level rows
-        $obj.html('');
-        $pivottable = $(sb.toString()).appendTo($obj);
+        //$obj.html('');
+        //$pivottable = $(sb.toString()).appendTo($obj);
+        $pivottable.append(sb.toString());
         $pivottable.data({'jquery.pivot.adapter': adapter, 'opts': opts});
         appendChildRows(adapter.tree, $('tr:first', $pivottable), adapter);
     }
