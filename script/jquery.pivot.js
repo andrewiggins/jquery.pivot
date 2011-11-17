@@ -77,14 +77,47 @@
         }
     }
 
+    function aggregateNode(treeNode, pivotValue) {
+        var opts = $('table.pivot').data('opts'),
+            aggValue = $.map(treeNode.aggregateValues || [], function (item, index) {
+                return item.pivotValue === pivotValue ? item.value : null;
+            });
+        
+        if (aggValue.length < 1) {
+           // Calculate aggregate value
+           var children = treeNode.children,
+               newAggObject;
+
+           if (children) {
+               childValues = []
+               for (i = 0; i < children.length; i++) 
+                   childValues.push(opts.parseNumFunc(aggregateNode(children[i])));
+               aggValue = opts.customAggregateFunction(childValues);
+               newAggObject = {pivotValue: pivotValue, value: aggValue};
+            }
+            else {
+                var pivotCells = $.map(treeNode.pivotvalues || [], function (item, index) {
+                    return item.pivotValue === pivotValue ? item.result : null;
+                });
+                newAggObject = { pivotValue: pivotValue, value: pivotCells}; 
+            }
+
+            treeNode.aggregateValues.push(newAggObject);
+        }
+
+        return aggValue;
+    }
+
     function getResValue(treeNode, pivotValue) {
         var i, i1,
             res = opts.bSum ? 0.0 : '',
             pivotCells = $.map(treeNode.pivotvalues || [], function (item, index) {
                 return item.pivotValue === pivotValue ? item.result : null;
             });
-
-        if (opts.bSum) {
+        
+        if (opts.customAggregateFunction) {
+            return aggregateNode(treeNode, pivotValue);
+        } else if (opts.bSum) {
             if (pivotCells.length >= 1) {
                 for (i = 0; i < pivotCells.length; i += 1) {
                     res += opts.parseNumFunc(pivotCells[i]);
@@ -375,7 +408,8 @@
         noGroupByText: 'No value', //Text used if no data is available for specific groupby and pivot value.
         noDataText: 'No data', //Text used if source data is empty.
         separatorchar: ', ',
-        consolidateGroupByCols: false
+        consolidateGroupByCols: false, // Consolidate GroupBy Columns into one column
+        customAggregateFunction: null 
     };
 
     $.fn.pivot.formatDK = function (num, decimals) { return this.formatLocale(num, decimals, '.', ','); };
@@ -446,7 +480,9 @@
     }
 
     AdapterObject.prototype.parseJSONsource = function (data) {
-        var cellIndex, cellcount, rowIndex, rowcount, col, cell, cells, curNode, i, groupbyValue, groupbyText, sortbyValue, newObj, pivotValue, pivotSortBy, result, newPivotValue;
+        var cellIndex, cellcount, rowIndex, rowcount, col, cell, 
+        cells, curNode, i, groupbyValue, groupbyText, sortbyValue,
+        newObj, pivotValue, pivotSortBy, result, newPivotValue;
         this.dataid = data.dataid;
         //exctract header info
         for (cellIndex = 0, cellcount = data.columns.length; cellIndex < cellcount; cellIndex += 1) {
@@ -501,6 +537,7 @@
                     newObj.dataid = this.alGroupByCols[i].dataid;
                     newObj.collapsed = true;
                     newObj.groupbylevel = i;
+                    newObj.aggregateValues = [] // Holds the aggregate values for each pivot if a custom aggregate function is used
                     curNode.children.push(newObj);
                 }
 
@@ -515,6 +552,7 @@
             }
             newPivotValue = { pivotValue: pivotValue, result: result, sortby: pivotSortBy, dataid: this.pivotCol.dataid };
             curNode.pivotvalues.push(newPivotValue);
+
             if (!lib.exists(this.uniquePivotValues, findPivotFunc, pivotValue)) {
                 this.uniquePivotValues.push(newPivotValue);
             }
@@ -565,6 +603,7 @@
             data.rows.push(row);
         }
 
+        sourceTable.data('json', data);
         this.parseJSONsource(data);
     };
 
