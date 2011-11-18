@@ -102,7 +102,10 @@
                 newAggObject = { pivotValue: pivotValue, value: pivotCells}; 
             }
 
-            treeNode.aggregateValues.push(newAggObject);
+            if (treeNode.aggregateValues.length > 0)
+                treeNode.aggregateValues.push(newAggObject);
+            else
+                treeNode.aggregateValues = [newAggObject];
         }
 
         return aggValue;
