@@ -78,18 +78,18 @@
     }
 
     function aggregateNode(treeNode, pivotValue) {
-        var opts = $('table.pivot').data('opts'),
+        var i, childValues, children, newAggObject,
+            opts = $('table.pivot').data('opts'),
             aggValue = $.map(treeNode.aggregateValues || [], function (item, index) {
                 return item.pivotValue === pivotValue ? item.value : null;
             });
         
         if (aggValue.length < 1) {
            // Calculate aggregate value
-           var children = treeNode.children,
-               newAggObject;
+           children = treeNode.children;
 
            if (children.length > 0) {
-               childValues = []
+               childValues = [];
                for (i = 0; i < children.length; i++) 
                    childValues.push(opts.parseNumFunc(aggregateNode(children[i], pivotValue)));
                aggValue = opts.customAggregateFunction(childValues);
