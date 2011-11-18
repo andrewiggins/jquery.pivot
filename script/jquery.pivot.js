@@ -88,10 +88,10 @@
            var children = treeNode.children,
                newAggObject;
 
-           if (children) {
+           if (children.length > 0) {
                childValues = []
                for (i = 0; i < children.length; i++) 
-                   childValues.push(opts.parseNumFunc(aggregateNode(children[i])));
+                   childValues.push(opts.parseNumFunc(aggregateNode(children[i], pivotValue)));
                aggValue = opts.customAggregateFunction(childValues);
                newAggObject = {pivotValue: pivotValue, value: aggValue};
             }
@@ -99,10 +99,11 @@
                 var pivotCells = $.map(treeNode.pivotvalues || [], function (item, index) {
                     return item.pivotValue === pivotValue ? item.result : null;
                 });
+                aggValue = pivotCells;
                 newAggObject = { pivotValue: pivotValue, value: pivotCells}; 
             }
 
-            if (treeNode.aggregateValues.length > 0)
+            if (treeNode.aggregateValues)
                 treeNode.aggregateValues.push(newAggObject);
             else
                 treeNode.aggregateValues = [newAggObject];
