@@ -250,6 +250,8 @@
             pivotCols = adapter.uniquePivotValues,
             rowSum = 0.0;
 
+        $pivottable.data($.extend($pivottable.data(), {'opts': opts}));
+
         //headerrow
         // Build Groupby Headers
         sb.append('<tr class="head">');
@@ -312,7 +314,7 @@
         //$obj.html('');
         //$pivottable = $(sb.toString()).appendTo($obj);
         $pivottable.append(sb.toString());
-        $pivottable.data({'jquery.pivot.adapter': adapter, 'opts': opts});
+        $pivottable.data($.extend($pivottable.data(), {'jquery.pivot.adapter': adapter}));
         appendChildRows(adapter.tree, $('tr:first', $pivottable), adapter);
     }
 
