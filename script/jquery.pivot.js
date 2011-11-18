@@ -2,7 +2,7 @@
  * pivot: Columns
  * groupbyrank: Order of Rows
  * result: Value
- * 
+ *
  * TODO:
  *  - custom aggregate function
  *  - Row headers in one column.
@@ -82,7 +82,7 @@
             aggValue = $.map(treeNode.aggregateValues || [], function (item, index) {
                 return item.pivotValue === pivotValue ? item.value : null;
             });
-        
+
         if (aggValue.length < 1) {
            // Calculate aggregate value
            children = treeNode.children;
@@ -103,7 +103,7 @@
                     return item.pivotValue === pivotValue ? item.result : null;
                 });
                 aggValue = pivotCells;
-                newAggObject = { pivotValue: pivotValue, value: pivotCells}; 
+                newAggObject = { pivotValue: pivotValue, value: pivotCells};
             }
 
             if (treeNode.aggregateValues)
@@ -121,7 +121,7 @@
             pivotCells = $.map(treeNode.pivotvalues || [], function (item, index) {
                 return item.pivotValue === pivotValue ? item.result : null;
             });
-        
+
         if (opts.customAggregateFunction) {
             res = aggregateNode(treeNode, pivotValue);
         } else if (opts.bSum) {
@@ -151,27 +151,27 @@
             pivotCols = adapter.uniquePivotValues,
             consolidate = opts.consolidateGroupByCols,
             onResultCellClicked = opts.onResultCellClicked;
-        
+
         for (i = 0; i < treeNode.children.length; i += 1) {
             sb = new lib.StringBuilder();
             item = treeNode.children[i];
             itemtext = (item.groupbyText === undefined || item.groupbyText === null || item.groupbyText === '&nbsp;' || item.groupbyText === '') ? opts.noGroupByText : item.groupbyText;
-            
+
             // Create Data Row
             sb.append('<tr class="level');
             sb.append(item.groupbylevel);
             sb.append('">');
-            
+
             // Build groupby column cells
             if (consolidate == true) {
                 sb.append('<th class="groupby level');
                 sb.append(col);
                 sb.append('">');
-                
+
                 margin = 22*item.colindex;
                 if (item.children.length > 0) {
                     style = 'style="margin-left:'+margin+'px;"';
-                    
+
                     sb.append('<span class="foldunfold collapsed" '+style+'>');
                     sb.append(itemtext);
                     sb.append(' </span>');
@@ -179,20 +179,20 @@
                 else {
                     padding = 18;
                     style = 'style="margin-left:'+margin+'px; padding-left:'+padding+'px;"';
-                    
+
                     sb.append('<span '+style+'>');
                     sb.append(itemtext);
                     sb.append(' </span>');
                 }
-                
+
                 sb.append('</th>');
-            }   
+            }
             else {
                 for (col = 0; col < gbCols.length; col += 1) {
                     sb.append('<th class="groupby level');
                     sb.append(col);
                     sb.append('">');
-                    
+
                     // Add cell text under appropriate groupby column
                     if(gbCols[col].colindex === item.colindex) {
                         if (item.children.length > 0) {
@@ -209,12 +209,16 @@
                     else {
                         sb.append(' ');
                     }
-    
+
                     sb.append('</th>');
                 }
             }
+
             sb.append('</tr>');
-            belowThisRow = $(sb.toString()).insertAfter(belowThisRow);
+            if (belowThisRow.is('tbody'))
+              belowThisRow = $(sb.toString()).appendTo(belowThisRow);
+            else
+              belowThisRow = $(sb.toString()).insertAfter(belowThisRow);
             belowThisRow.find('.foldunfold').data("status", { bDatabound: false, treeNode: item });
 
             rowSum = 0.0; // Calculates Row Sum
@@ -222,7 +226,7 @@
 
             // Build Result Cells
             for (col1 = 0; col1 < pivotCols.length; col1 += 1) {
-                result = getResValue(item, pivotCols[col1].pivotValue); // Calculates Cell Value (sum)x 
+                result = getResValue(item, pivotCols[col1].pivotValue); // Calculates Cell Value (sum)x
                 if (opts.bTotals) {
                     rowSum += result;
                     rowList.push(result);
@@ -264,9 +268,10 @@
         $pivottable.data($.extend($pivottable.data(), {'opts': opts}));
 
         //headerrow
+        sb.append('<thead>');
         // Build Groupby Headers
         sb.append('<tr class="head">');
-        
+
         if (opts.consolidateGroupByCols) {
             sb.append('<th class="groupby level');
             sb.append(i);
@@ -295,11 +300,13 @@
             sb.append('<th class="total">Total</th>');
         }
         sb.append('</tr>');
+        sb.append('</thead>');
 
         //make sum row
         var d = new Date(), start = d.getTime(), end;
 
         if (opts.bTotals) {
+            sb.append('<tfoot>');
             sb.append('<tr class="total">');
             sb.append('<th class="total"');
             if (!opts.consolidateGroupByCols){
@@ -307,12 +314,12 @@
                 sb.append(gbCols.length);
             }
             sb.append('">Total</th>');
-            
+
             for (col = 0; col < pivotCols.length; col += 1) {
                 var d2 = new Date(), start2 = d2.getTime(), end2;
                 result = getResValue(adapter.tree, pivotCols[col].pivotValue);
                 d2 = new Date(); end2 = d2.getTime(); console.log('getResValue: ' + (end2 - start2));
-                
+
                 if (opts.bTotals) {
                     rowSum += (+result);
                     rowList.push(+result);
@@ -321,15 +328,17 @@
                 sb.append(opts.formatFunc(result));
                 sb.append('</td>');
             }
-            
+
             rowValue = opts.customAggregateFunction ? opts.customAggregateFunction(rowList, rowSum) : rowSum;
             sb.append('<td class="total">');
             sb.append(opts.formatFunc(rowValue));
             sb.append('</td>');
             sb.append('</tr>');
+            sb.append('</tfoot>');
         }
+        sb.append('<tbody></tbody>');
         //sb.append('</table>');
-        
+
         d = new Date(); end = d.getTime(); console.log('sum row: ' + (end - start));
 
         //top level rows
@@ -339,7 +348,8 @@
         $pivottable.data($.extend($pivottable.data(), {'jquery.pivot.adapter': adapter}));
 
         d = new Date(); start = d.getTime();
-        appendChildRows(adapter.tree, $('tr:first', $pivottable), adapter);
+        //appendChildRows(adapter.tree, $('tr:first', $pivottable), adapter);
+        appendChildRows(adapter.tree, $('tbody', $pivottable), adapter);
         d = new Date(); end = d.getTime(); console.log('appendChildRows: ' + (end - start));
     }
 
@@ -418,11 +428,11 @@
                 }
 
                 // Build Table
-                
+
                 var d = new Date(), start = d.getTime(), end;
-                
+
                 makeCollapsed(adapter, $obj, opts);
-                
+
                 d = new Date(); end = d.getTime(); console.log('makeCollapsed: ' + (end - start));
             }
 
@@ -444,7 +454,7 @@
         noDataText: 'No data', //Text used if source data is empty.
         separatorchar: ', ',
         consolidateGroupByCols: false, // Consolidate GroupBy Columns into one column
-        customAggregateFunction: null 
+        customAggregateFunction: null
     };
 
     $.fn.pivot.formatDK = function (num, decimals) { return this.formatLocale(num, decimals, '.', ','); };
@@ -515,7 +525,7 @@
     }
 
     AdapterObject.prototype.parseJSONsource = function (data) {
-        var cellIndex, cellcount, rowIndex, rowcount, col, cell, 
+        var cellIndex, cellcount, rowIndex, rowcount, col, cell,
         cells, curNode, i, groupbyValue, groupbyText, sortbyValue,
         newObj, pivotValue, pivotSortBy, result, newPivotValue;
         this.dataid = data.dataid;
@@ -639,7 +649,7 @@
         }
 
         sourceTable.data('json', data);
-        
+
         this.parseJSONsource(data);
     };
 
