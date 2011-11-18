@@ -109,7 +109,7 @@
                 treeNode.aggregateValues = [newAggObject];
         }
 
-        return aggValue;
+        return opts.parseNumFunc(aggValue);
     }
 
     function getResValue(treeNode, pivotValue) {
@@ -143,7 +143,7 @@
     }
 
     function appendChildRows(treeNode, belowThisRow, adapter) {
-        var i, col, col1, sb, item, itemtext, rowSum, result, resCell, margin, padding,
+        var i, col, col1, sb, item, itemtext, rowSum, rowlist, result, resCell, margin, padding,
             gbCols = adapter.alGroupByCols,
             pivotCols = adapter.uniquePivotValues,
             localopts = $('table.pivot').data('opts'),
@@ -216,12 +216,14 @@
             belowThisRow.find('.foldunfold').data("status", { bDatabound: false, treeNode: item });
 
             rowSum = 0.0; // Calculates Row Sum
+            rowlist = [];
 
             // Build Result Cells
             for (col1 = 0; col1 < pivotCols.length; col1 += 1) {
                 result = getResValue(item, pivotCols[col1].pivotValue); // Calculates Cell Value (sum)x 
                 if (opts.bTotals) {
                     rowSum += result;
+                    rowlist.push(result);
                 }
                 sb.clear();
                 if (onResultCellClicked)
@@ -238,7 +240,10 @@
             if (opts.bTotals) {
                 sb.clear();
                 sb.append('<td class="total">');
-                sb.append(opts.formatFunc(rowSum));
+                if (opts.customAggregateFunction)
+                    sb.append(opts.customAggregateFunction(rowlist));
+                else
+                    sb.append(opts.formatFunc(rowSum));
                 sb.append('</td>');
                 $(sb.toString()).appendTo(belowThisRow);
             }
@@ -247,7 +252,7 @@
 
     function makeCollapsed(adapter, $obj, opts) {
         $obj.html('');
-        var i, i1, col, result, 
+        var i, i1, col, result, rowlist = [], 
             $pivottable = $('<table class="pivot"></table>').appendTo($obj),
             sb = new lib.StringBuilder(''),
             gbCols = adapter.alGroupByCols,
@@ -302,11 +307,13 @@
                 result = getResValue(adapter.tree, pivotCols[col].pivotValue);
                 if (opts.bTotals) {
                     rowSum += (+result);
+                    rowlist.push(+result);
                 }
                 sb.append('<td>');
                 sb.append(opts.formatFunc(result));
                 sb.append('</td>');
             }
+            rowSum = opts.customAggregateFunction ? opts.customAggregateFunction(rowlist) : rowSum;
             sb.append('<td class="total">');
             sb.append(opts.formatFunc(rowSum));
             sb.append('</td>');
@@ -397,7 +404,12 @@
                 }
 
                 // Build Table
+                
+                var d = new Date(), start = d.getTime(), end;
+                
                 makeCollapsed(adapter, $obj, opts);
+                
+                d = new Date(); end = d.getTime(); console.debug('makeCollapsed: ' + (end - start));
             }
 
             if ($obj.html() === '') {
@@ -613,6 +625,7 @@
         }
 
         sourceTable.data('json', data);
+        
         this.parseJSONsource(data);
     };
 
