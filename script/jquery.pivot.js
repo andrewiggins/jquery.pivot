@@ -78,8 +78,7 @@
     }
 
     function aggregateNode(treeNode, pivotValue) {
-        var i, childValues, children, newAggObject,
-            opts = $('table.pivot').data('opts'),
+        var i, childValues, children, newAggObject, childSum, childValue,
             aggValue = $.map(treeNode.aggregateValues || [], function (item, index) {
                 return item.pivotValue === pivotValue ? item.value : null;
             });
@@ -89,11 +88,15 @@
            children = treeNode.children;
 
            if (children.length > 0) {
-               childValues = [];
-               for (i = 0; i < children.length; i++) 
-                   childValues.push(opts.parseNumFunc(aggregateNode(children[i], pivotValue)));
-               aggValue = opts.customAggregateFunction(childValues);
-               newAggObject = {pivotValue: pivotValue, value: aggValue};
+              childValues = [];
+              childSum = 0.0;
+              for (i = 0; i < children.length; i++) {
+                  childValue = opts.parseNumFunc(aggregateNode(children[i], pivotValue));
+                  childSum += childValue;
+                  childValues.push(childValue);
+              }
+              aggValue = opts.customAggregateFunction(childValues, childSum);
+              newAggObject = {pivotValue: pivotValue, value: aggValue};
             }
             else {
                 var pivotCells = $.map(treeNode.pivotvalues || [], function (item, index) {
@@ -120,7 +123,7 @@
             });
         
         if (opts.customAggregateFunction) {
-            return aggregateNode(treeNode, pivotValue);
+            res = aggregateNode(treeNode, pivotValue);
         } else if (opts.bSum) {
             if (pivotCells.length >= 1) {
                 for (i = 0; i < pivotCells.length; i += 1) {
@@ -143,12 +146,11 @@
     }
 
     function appendChildRows(treeNode, belowThisRow, adapter) {
-        var i, col, col1, sb, item, itemtext, rowSum, rowlist, result, resCell, margin, padding,
+        var i, col, col1, sb, item, itemtext, rowSum, rowList, result, resCell, margin, padding,
             gbCols = adapter.alGroupByCols,
             pivotCols = adapter.uniquePivotValues,
-            localopts = $('table.pivot').data('opts'),
-            consolidate = localopts.consolidateGroupByCols,
-            onResultCellClicked = localopts.onResultCellClicked;
+            consolidate = opts.consolidateGroupByCols,
+            onResultCellClicked = opts.onResultCellClicked;
         
         for (i = 0; i < treeNode.children.length; i += 1) {
             sb = new lib.StringBuilder();
@@ -216,14 +218,14 @@
             belowThisRow.find('.foldunfold').data("status", { bDatabound: false, treeNode: item });
 
             rowSum = 0.0; // Calculates Row Sum
-            rowlist = [];
+            rowList = [];
 
             // Build Result Cells
             for (col1 = 0; col1 < pivotCols.length; col1 += 1) {
                 result = getResValue(item, pivotCols[col1].pivotValue); // Calculates Cell Value (sum)x 
                 if (opts.bTotals) {
                     rowSum += result;
-                    rowlist.push(result);
+                    rowList.push(result);
                 }
                 sb.clear();
                 if (onResultCellClicked)
@@ -241,7 +243,7 @@
                 sb.clear();
                 sb.append('<td class="total">');
                 if (opts.customAggregateFunction)
-                    sb.append(opts.customAggregateFunction(rowlist));
+                    sb.append(opts.customAggregateFunction(rowList, rowSum));
                 else
                     sb.append(opts.formatFunc(rowSum));
                 sb.append('</td>');
@@ -252,7 +254,7 @@
 
     function makeCollapsed(adapter, $obj, opts) {
         $obj.html('');
-        var i, i1, col, result, rowlist = [], 
+        var i, i1, col, result, rowList = [], rowValue,
             $pivottable = $('<table class="pivot"></table>').appendTo($obj),
             sb = new lib.StringBuilder(''),
             gbCols = adapter.alGroupByCols,
@@ -295,6 +297,8 @@
         sb.append('</tr>');
 
         //make sum row
+        var d = new Date(), start = d.getTime(), end;
+
         if (opts.bTotals) {
             sb.append('<tr class="total">');
             sb.append('<th class="total"');
@@ -303,30 +307,40 @@
                 sb.append(gbCols.length);
             }
             sb.append('">Total</th>');
+            
             for (col = 0; col < pivotCols.length; col += 1) {
+                var d2 = new Date(), start2 = d2.getTime(), end2;
                 result = getResValue(adapter.tree, pivotCols[col].pivotValue);
+                d2 = new Date(); end2 = d2.getTime(); console.log('getResValue: ' + (end2 - start2));
+                
                 if (opts.bTotals) {
                     rowSum += (+result);
-                    rowlist.push(+result);
+                    rowList.push(+result);
                 }
                 sb.append('<td>');
                 sb.append(opts.formatFunc(result));
                 sb.append('</td>');
             }
-            rowSum = opts.customAggregateFunction ? opts.customAggregateFunction(rowlist) : rowSum;
+            
+            rowValue = opts.customAggregateFunction ? opts.customAggregateFunction(rowList, rowSum) : rowSum;
             sb.append('<td class="total">');
-            sb.append(opts.formatFunc(rowSum));
+            sb.append(opts.formatFunc(rowValue));
             sb.append('</td>');
             sb.append('</tr>');
         }
         //sb.append('</table>');
+        
+        d = new Date(); end = d.getTime(); console.log('sum row: ' + (end - start));
 
         //top level rows
         //$obj.html('');
         //$pivottable = $(sb.toString()).appendTo($obj);
         $pivottable.append(sb.toString());
         $pivottable.data($.extend($pivottable.data(), {'jquery.pivot.adapter': adapter}));
+
+        d = new Date(); start = d.getTime();
         appendChildRows(adapter.tree, $('tr:first', $pivottable), adapter);
+        d = new Date(); end = d.getTime(); console.log('appendChildRows: ' + (end - start));
     }
 
     function foldunfold(eventSource) {
@@ -409,7 +423,7 @@
                 
                 makeCollapsed(adapter, $obj, opts);
                 
-                d = new Date(); end = d.getTime(); console.debug('makeCollapsed: ' + (end - start));
+                d = new Date(); end = d.getTime(); console.log('makeCollapsed: ' + (end - start));
             }
 
             if ($obj.html() === '') {
