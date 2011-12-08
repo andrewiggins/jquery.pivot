@@ -303,22 +303,23 @@
         sb.append('</thead>');
 
         //make sum row
-        var d = new Date(), start = d.getTime(), end;
+        //var d = new Date(), start = d.getTime(), end;
 
         if (opts.bTotals) {
             sb.append('<tfoot>');
             sb.append('<tr class="total">');
-            sb.append('<th class="total"');
+            sb.append('<th class="total" ');
             if (!opts.consolidateGroupByCols){
                 sb.append('colspan="');
                 sb.append(gbCols.length);
+                sb.append('"');
             }
-            sb.append('">Total</th>');
+            sb.append('>Total</th>');
 
             for (col = 0; col < pivotCols.length; col += 1) {
-                var d2 = new Date(), start2 = d2.getTime(), end2;
+                //var d2 = new Date(), start2 = d2.getTime(), end2;
                 result = getResValue(adapter.tree, pivotCols[col].pivotValue);
-                d2 = new Date(); end2 = d2.getTime(); console.log('getResValue: ' + (end2 - start2));
+                //d2 = new Date(); end2 = d2.getTime(); console.log('getResValue: ' + (end2 - start2));
 
                 if (opts.bTotals) {
                     rowSum += (+result);
@@ -339,7 +340,7 @@
         sb.append('<tbody></tbody>');
         //sb.append('</table>');
 
-        d = new Date(); end = d.getTime(); console.log('sum row: ' + (end - start));
+        //d = new Date(); end = d.getTime(); console.log('sum row: ' + (end - start));
 
         //top level rows
         //$obj.html('');
@@ -347,10 +348,10 @@
         $pivottable.append(sb.toString());
         $pivottable.data($.extend($pivottable.data(), {'jquery.pivot.adapter': adapter}));
 
-        d = new Date(); start = d.getTime();
+        //d = new Date(); start = d.getTime();
         //appendChildRows(adapter.tree, $('tr:first', $pivottable), adapter);
         appendChildRows(adapter.tree, $('tbody', $pivottable), adapter);
-        d = new Date(); end = d.getTime(); console.log('appendChildRows: ' + (end - start));
+        //d = new Date(); end = d.getTime(); console.log('appendChildRows: ' + (end - start));
     }
 
     function foldunfold(eventSource) {
@@ -429,11 +430,11 @@
 
                 // Build Table
 
-                var d = new Date(), start = d.getTime(), end;
+                //var d = new Date(), start = d.getTime(), end;
 
                 makeCollapsed(adapter, $obj, opts);
 
-                d = new Date(); end = d.getTime(); console.log('makeCollapsed: ' + (end - start));
+                //d = new Date(); end = d.getTime(); console.log('makeCollapsed: ' + (end - start));
             }
 
             if ($obj.html() === '') {
