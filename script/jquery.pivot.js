@@ -10,7 +10,8 @@
 
 /*global jQuery, JSON, $, alert, document, AdapterObject, PagerObject, FilterObject, SortObject, HideColumns */
 (function ($) {
-    var opts, lib = {};
+    //var opts;
+    var lib = {};
     lib.StringBuilder = function (value) { this.strings = [""]; this.append(value); };
     lib.StringBuilder.prototype.append = function (value) { if (value !== null) { this.strings.push(value); } };
     lib.StringBuilder.prototype.clear = function () { this.strings.length = 1; };
@@ -51,9 +52,10 @@
         return false;
     };
 
-    function resultCellClicked() {
+    function resultCellClicked(eventSource) {
         if (opts.onResultCellClicked) {
             var el = $(this),
+                opts = eventSource.data,
                 adapter = el.closest('table.pivot').data('jquery.pivot.adapter'),
                 aGroupBys = [],
                 data = el.data("def"),
@@ -77,7 +79,7 @@
         }
     }
 
-    function aggregateNode(treeNode, pivotValue) {
+    function aggregateNode(treeNode, pivotValue, opts) {
         var i, childValues, children, newAggObject, childSum, childValue,
             aggValue = $.map(treeNode.aggregateValues || [], function (item, index) {
                 return item.pivotValue === pivotValue ? item.value : null;
@@ -91,7 +93,7 @@
               childValues = [];
               childSum = 0.0;
               for (i = 0; i < children.length; i++) {
-                  childValue = opts.parseNumFunc(aggregateNode(children[i], pivotValue));
+                  childValue = opts.parseNumFunc(aggregateNode(children[i], pivotValue, opts));
                   childSum += childValue;
                   childValues.push(childValue);
               }
@@ -115,7 +117,7 @@
         return opts.parseNumFunc(aggValue);
     }
 
-    function getResValue(treeNode, pivotValue) {
+    function getResValue(treeNode, pivotValue, opts) {
         var i, i1,
             res = opts.bSum ? 0.0 : '',
             pivotCells = $.map(treeNode.pivotvalues || [], function (item, index) {
@@ -123,7 +125,7 @@
             });
 
         if (opts.customAggregateFunction) {
-            res = aggregateNode(treeNode, pivotValue);
+            res = aggregateNode(treeNode, pivotValue, opts);
         } else if (opts.bSum) {
             if (pivotCells.length >= 1) {
                 for (i = 0; i < pivotCells.length; i += 1) {
@@ -132,7 +134,7 @@
             } else {
                 for (i1 = 0; i1 < treeNode.children.length; i1 += 1) {
                     /*ignore jslint start*/
-                    res += getResValue(treeNode.children[i1], pivotValue);
+                    res += getResValue(treeNode.children[i1], pivotValue, opts);
                     /*ignore jslint end*/
                 }
             }
@@ -145,7 +147,7 @@
         return res;
     }
 
-    function appendChildRows(treeNode, belowThisRow, adapter) {
+    function appendChildRows(treeNode, belowThisRow, adapter, opts) {
         var i, col, col1, sb, item, itemtext, rowSum, rowList, result, resCell, margin, padding,
             gbCols = adapter.alGroupByCols,
             pivotCols = adapter.uniquePivotValues,
@@ -226,7 +228,7 @@
 
             // Build Result Cells
             for (col1 = 0; col1 < pivotCols.length; col1 += 1) {
-                result = getResValue(item, pivotCols[col1].pivotValue); // Calculates Cell Value (sum)x
+                result = getResValue(item, pivotCols[col1].pivotValue, opts); // Calculates Cell Value (sum)x
                 if (opts.bTotals) {
                     rowSum += result;
                     rowList.push(result);
@@ -318,7 +320,7 @@
 
             for (col = 0; col < pivotCols.length; col += 1) {
                 //var d2 = new Date(), start2 = d2.getTime(), end2;
-                result = getResValue(adapter.tree, pivotCols[col].pivotValue);
+                result = getResValue(adapter.tree, pivotCols[col].pivotValue, opts);
                 //d2 = new Date(); end2 = d2.getTime(); console.log('getResValue: ' + (end2 - start2));
 
                 if (opts.bTotals) {
@@ -350,12 +352,13 @@
 
         //d = new Date(); start = d.getTime();
         //appendChildRows(adapter.tree, $('tr:first', $pivottable), adapter);
-        appendChildRows(adapter.tree, $('tbody', $pivottable), adapter);
+        appendChildRows(adapter.tree, $('tbody', $pivottable), adapter, opts);
         //d = new Date(); end = d.getTime(); console.log('appendChildRows: ' + (end - start));
     }
 
     function foldunfold(eventSource) {
         var el = $(this),
+            opts = eventSource.data,
             adapter = el.closest('table.pivot').data('jquery.pivot.adapter'),
             status = el.data("status"),
             parentRow = el.closest('tr'),
@@ -372,7 +375,7 @@
         }
 
         if (!status.bDatabound) {
-            appendChildRows(status.treeNode, parentRow, adapter);
+            appendChildRows(status.treeNode, parentRow, adapter, opts);
             status.bDatabound = true;
         }
         else {
@@ -423,17 +426,14 @@
                 $obj.find(".resultcell").die('click');
 
                 //set up eventhandlers
-                $obj.find(".pivot .foldunfold").live('click', foldunfold);
+                $obj.find(".pivot .foldunfold").live('click', opts, foldunfold);
                 if (opts.onResultCellClicked) {
-                    $obj.find(".resultcell").live('click', resultCellClicked);
+                    $obj.find(".resultcell").live('click', opts, resultCellClicked);
                 }
 
                 // Build Table
-
                 //var d = new Date(), start = d.getTime(), end;
-
                 makeCollapsed(adapter, $obj, opts);
-
                 //d = new Date(); end = d.getTime(); console.log('makeCollapsed: ' + (end - start));
             }
 
