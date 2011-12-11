@@ -371,14 +371,18 @@
         status.treeNode.collapsed = !status.treeNode.collapsed;
 
         if (status.treeNode.collapsed) {
+            el.removeClass('expanded');
             el.addClass('collapsed');
         }
         else {
             el.removeClass('collapsed');
+            el.addClass('expanded');
         }
 
         if (!status.bDatabound) {
+            var d = new Date(), start = d.getTime(), end;
             appendChildRows(status.treeNode, parentRow, adapter, opts);
+            d = new Date(); end = d.getTime(); console.log('appendChildRows: ' + (end - start));
             status.bDatabound = true;
         }
         else {
