@@ -62,6 +62,9 @@
                 curNode = data.treeNode,
                 dataObj;
 
+            el.closest('table.pivot').find('.resultcell').removeClass('clickedResultCell');
+            el.addClass('clickedResultCell');
+
             while (curNode.parent) {
                 aGroupBys.unshift({ dataidGroup: curNode.dataid, groupbyval: curNode.groupbyValue });
                 curNode = curNode.parent;
@@ -75,7 +78,7 @@
                 },
                 groups: aGroupBys
             };
-            opts.onResultCellClicked(dataObj);
+            opts.onResultCellClicked(dataObj, el);
         }
     }
 
